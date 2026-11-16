@@ -30,3 +30,11 @@ urlpatterns = [
     # Vos routes pour l'application django skills_exchange
     path('polls/', include('skills_exchange.urls')),
 ]
+
+# Inclure les urls django-debug-toolbar
+if settings.DEBUG:
+    import debug_toolbar
+
+    urlpatterns = [
+        path('__debug__/', include(debug_toolbar.urls)),
+    ] + urlpatterns
