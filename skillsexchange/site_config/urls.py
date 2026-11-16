@@ -18,5 +18,15 @@ from django.contrib import admin
 from django.urls import path
 
 urlpatterns = [
+        # Page d'accueil racine qui pointe vers un fichier home.html
+    path('', TemplateView.as_view(template_name='home.html'), name='home'),
+
+    # Chemin /home/ explicitement autorisé (http://127.0.0.1:8000/home/)
+    path('home/', TemplateView.as_view(template_name='home.html'), name='home'),
+    
+    # Panneau d'administration
     path('admin/', admin.site.urls),
+
+    # Vos routes pour l'application django skills_exchange
+    path('polls/', include('skills_exchange.urls')),
 ]
