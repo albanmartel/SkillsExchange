@@ -93,19 +93,18 @@ python -m pip install -r requirements.txt
 ### Creating the django basic site structure
 
 ```cmd
-mkdir skillsexchange
-django-admin startproject site_config skillsexchange
+mkdir helpexchanges
+django-admin startproject config helpexchanges
 ```
 
-__Note:__
-At this stage, the admin site is __site_config__ and the application site is __skills_exchange__
-
-### Creating the __SkillsExchange__ application
+### Creating the __Skills__ application
 
 ```cmd
 cd skillsexchange
-python manage.py startapp skills_exchange
+python .\manage.py startapp skills
 ```
+__Note:__
+At this stage, the admin site is __config__ and the application site is __skills__
 
 ## Architecture
 
@@ -113,9 +112,9 @@ Project structure :
 ```powershell
 ────SkillsExchange
     └───.git
-    └─── skillsexchange
-        └─── site_config
-        └─── skills_exchange
+    └─── helpexchanges
+        └─── config
+        └─── skills
         └─── manage.py
     └───.venv
     └───.gitignore
@@ -131,9 +130,9 @@ Take a look at the code. In my case, I have the following:
 from django.apps import AppConfig
 
 
-class SkillsExchangeConfig(AppConfig):
+class SkillsConfig(AppConfig):
     default_auto_field = 'django.db.models.BigAutoField'
-    name = 'skills_exchange'
+    name = 'skills'
 ```
 
 I use this to write the following on the first line of the __INSTALLED_APPS__ table in the __site_config\settings.py__ file:
@@ -151,16 +150,11 @@ INSTALLED_APPS = [
 ALLOWED_HOSTS = [
     '127.0.0.1',
 ]
-```
-
-```python
-ALLOWED_HOSTS = [
-    '127.0.0.1',
-]
+````
 
 In the TEMPLATES table, edit the following DIRS row as follows
 ```python
-‘DIRS’: [BASE_DIR / ‘templates’],
+'DIRS': [BASE_DIR / 'templates'],
 ```
 
 Edit the ```LANGUAGE_CODE``` and ```TIME_ZONE``` variables so that they look like this:
