@@ -15,10 +15,12 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path
+from django.urls import path, include
+from django.views.generic import TemplateView
+from django.conf import settings
 
 urlpatterns = [
-        # Page d'accueil racine qui pointe vers un fichier home.html
+    # Page d'accueil racine qui pointe vers un fichier home.html
     path('', TemplateView.as_view(template_name='home.html'), name='home'),
 
     # Chemin /home/ explicitement autorisé (http://127.0.0.1:8000/home/)
