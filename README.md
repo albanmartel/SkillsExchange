@@ -227,6 +227,14 @@ mkdir css
 This allows parent templates to utilise JavaScript and CSS scripts.
 
 
+### creates all the necessary tables
+
+```python
+python manage.py migrate
+```
+
+If your database doesn't exist yet, migrate creates all the necessary tables to match your model definitions. Otherwise if the database already exists, migrate updates the existing table definitions to match the model definitions. Maybe you added a field to one of your models, so migrate would add that column to the database table.
+
 ### Launch of the development site
 
 ```python
@@ -246,4 +254,18 @@ python manage.py runserver
 
 ```PowerShell
 git reset HEAD~
+```
+
+1. Mettre à jour pour éviter le warning include <https://docs.djangoproject.com/en/dev/topics/settings/#using-settings-in-python-code>
+
+ ```Python
+from django.conf import settings
+
+settings.configure(DEBUG=True)
+```
+
+1. what does " python manage.py migrate " in django do exactly ? <https://stackoverflow.com/questions/62311073/what-does-python-manage-py-migrate-in-django-do-exactly>
+
+ ```Python
+python manage.py migrate
 ```
