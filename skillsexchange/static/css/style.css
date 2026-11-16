@@ -1,0 +1,288 @@
+/* ==========================================================================
+   Modèle CSS de css personnalisé
+   ========================================================================== */
+
+:root {
+    --primary-color: #4f46e5;
+    --primary-hover: #4338ca;
+    --primary-hover-fg: #417690;
+    --secondary-color: #06b6d4;
+    --bg-color: #f3f4f6;
+    --card-bg: #ffffff;
+    --text-main: #1f2937;
+    --text-muted: #6b7280;
+    --border-color: #e5e7eb;
+    --success-color: #10b981;
+    --danger-color: #ef4444;
+    --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
+    --transition: all 0.2s ease-in-out;
+}
+
+/* --- Menu déroulant personnalisé --- */
+details.admin-dropdown > summary {
+    list-style: none;
+    cursor: pointer;
+}
+details.admin-dropdown > summary::-webkit-details-marker {
+    display: none;
+}
+details.admin-dropdown {
+    position: relative;
+}
+
+.dropdown-menu-native {
+    position: absolute;
+    right: 0;
+    top: 100%;
+    background: #fff;
+    border: 1px solid #ccc;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    border-radius: 4px;
+    min-width: 160px;
+    display: flex;
+    flex-direction: column;
+    z-index: 1000;
+    padding: 5px 0;
+}
+
+.dropdown-logout-btn {
+    background: none;
+    border: none;
+    padding: 8px 16px;
+    margin: 0;
+    width: 100%;
+    text-align: left;
+    color: #333;
+    font-size: 0.95rem;
+    font-family: inherit;
+    cursor: pointer;
+    text-decoration: none;
+    display: block;
+}
+
+.dropdown-logout-btn:hover {
+    background-color: #f5f5f5;
+    color: #004080;
+    text-decoration: underline;
+}
+
+/* ==========================================================================
+   Layout & Navigation (Header, Bandeau & Burger)
+   ========================================================================== */
+header {
+    background-color: var(--card-bg);
+    border-bottom: 1px solid var(--border-color);
+    width: 100%;
+    position: relative;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+}
+
+.home-banner-link {
+    display: block;
+    width: 100%;
+    background-color: #ff9139ff;
+    overflow: hidden;
+}
+
+.header-banner-image {
+    width: 100%;
+    height: auto;
+    max-height: 100px;
+    min-height: 80px;
+    object-fit: contain;
+    display: block;
+    margin: 0 auto;
+}
+
+@media (max-width: 768px) {
+    .home-banner-link {
+        height: 100px;
+    }
+}
+
+.header-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    width: 100%;
+    padding: 0.75rem 1rem;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    box-sizing: border-box;
+    background-color: var(--card-bg);
+    border-top: 1px solid var(--border-color);
+}
+
+.site-title-placeholder {
+    margin-right: auto;
+    font-weight: 600;
+    color: var(--text-muted);
+    font-size: 0.9rem;
+}
+
+.header-nav ul, nav ul {
+    display: flex;
+    list-style: none;
+    gap: 1.5rem;
+    margin: 0;
+    padding: 0;
+    align-items: center;
+}
+
+.header-nav a, nav a {
+    text-decoration: none;
+    color: var(--text-muted);
+    font-weight: 500;
+    transition: var(--transition);
+}
+
+.header-nav a:hover, nav a:hover {
+    color: var(--primary-color);
+}
+
+/* --- Bouton Burger --- */
+.menu-toggle {
+    display: none;
+    background: none;
+    border: none;
+    cursor: pointer;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 24px;
+    width: 30px;
+    padding: 0;
+}
+
+.menu-toggle .bar {
+    display: block;
+    height: 3px;
+    width: 100%;
+    background-color: var(--text-main);
+    border-radius: 2px;
+    transition: all 0.3s ease;
+}
+
+main {
+    flex: 1;
+    max-width: 1200px;
+    width: 100%;
+    margin: 2rem auto;
+    padding: 0 1rem;
+    box-sizing: border-box;
+}
+
+/* ==========================================================================
+   Composants UI Front-end (Cartes, Boutons, Formulaires)
+   ========================================================================== */
+.card {
+    background-color: var(--card-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 0.5rem;
+    padding: 1.5rem;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+    margin-bottom: 1.5rem;
+}
+
+.btn {
+    display: inline-block;
+    background-color: var(--primary-color);
+    color: white;
+    padding: 0.6rem 1.2rem;
+    border-radius: 0.375rem;
+    border: none;
+    font-weight: 500;
+    cursor: pointer;
+    text-decoration: none;
+    transition: var(--transition);
+}
+
+.btn:hover {
+    background-color: var(--primary-hover);
+}
+
+/* Messages d'alerte Django */
+.messages {
+    list-style: none;
+    margin-bottom: 1.5rem;
+}
+
+.messages li {
+    padding: 0.75rem 1rem;
+    border-radius: 0.375rem;
+    margin-bottom: 0.5rem;
+    font-size: 0.875rem;
+}
+
+.messages .success { background-color: #d1fae5; color: #065f46; }
+.messages .error { background-color: #fee2e2; color: #991b1b; }
+.messages .warning { background-color: #fef3c7; color: #92400e; }
+
+footer {
+    text-align: center;
+    padding: 1.5rem;
+    background-color: var(--card-bg);
+    border-top: 1px solid var(--border-color);
+    color: var(--text-muted);
+    font-size: 0.875rem;
+}
+
+/* ==========================================================================
+   VERSION MOBILE
+   ========================================================================== */
+@media (max-width: 768px) {
+    .menu-toggle {
+        display: flex;
+    }
+
+    .site-title-placeholder {
+        display: none;
+    }
+
+    .header-nav, nav {
+        position: absolute;
+        top: 100%;
+        left: 0;
+        width: 100%;
+        background-color: var(--card-bg);
+        border-bottom: 1px solid var(--border-color);
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height 0.3s ease-out;
+        z-index: 100;
+    }
+
+    .header-nav ul, nav ul {
+        flex-direction: column;
+        align-items: center;
+        padding: 10px 0;
+        gap: 0;
+    }
+
+    .header-nav li, nav li {
+        width: 100%;
+        text-align: center;
+        border-bottom: 1px solid var(--bg-color);
+    }
+
+    .header-nav a, nav a {
+        display: block;
+        padding: 15px 0;
+    }
+
+    .header-nav.active, nav.active {
+        max-height: 300px;
+    }
+
+    .menu-toggle.active .bar:nth-child(1) {
+        transform: translateY(10px) rotate(45deg);
+    }
+    .menu-toggle.active .bar:nth-child(2) {
+        opacity: 0;
+    }
+    .menu-toggle.active .bar:nth-child(3) {
+        transform: translateY(-10px) rotate(-45deg);
+    }
+}
