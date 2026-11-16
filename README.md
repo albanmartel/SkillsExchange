@@ -235,9 +235,15 @@ python manage.py runserver
 
 ### Ressources
 
-1. Use the help provided by <github.com>. When creating a repository, GitHub offers to help you link a local repository to the remote repository.
+1. Use the help provided by <https://github.com>. When creating a repository, GitHub offers to help you link a local repository to the remote repository.
 
 1. Link a local repository to the Git remote repository:
 <https://labex.io/fr/tutorials/git-step-by-step-instructions-for-linking-a-git-repository-to-a-remote-398369>
 
 1. Add debugging tools to Django: <https://stackoverflow.com/a/70224986>
+
+1. Suppress latest commit in git <https://sebastien-gandossi.fr/blog/git-supprimer-un-commit-local-ou-distant>
+
+```PowerShell
+git reset HEAD~
+```
