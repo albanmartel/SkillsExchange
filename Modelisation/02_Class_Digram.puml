@@ -46,4 +46,6 @@ User "1" -- "0..*" Request
 Skill "1" -- "0..*" Activity
 Appointment "0..1" -- "0..1" Offer
 Appointment "0..1" -- "0..1" Request
+Offer "0..*" -- "1" Activity
+Request "0..*" -- "1" Activity
 @enduml
