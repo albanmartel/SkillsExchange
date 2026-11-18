@@ -1,4 +1,5 @@
 # SkillsExchange
+
 Projet web Django
 
 ## Objective
@@ -7,8 +8,7 @@ The application must enable people to exchange activities.
 The person receiving support is not proficient in the activity being carried out.
 The activity will take place when the carer has available slots.
 
-
-## Clone the projet 
+## Clone the projet
 
 ```
 git clone https://github.com/albanmartel/SkillsExchange.git
@@ -16,7 +16,7 @@ git clone https://github.com/albanmartel/SkillsExchange.git
 
 ### Create a Django project
 
-####  Create a local Git repository
+#### Create a local Git repository
 
 I have already created a Git repository on my online Git account.
 I create a directory for the Django project. I navigate into it and initialise it as a local Git repository.
@@ -24,7 +24,8 @@ I create a directory for the Django project. I navigate into it and initialise i
 ```bash
 git init
 ```
-I create a __README.md__ file and a __.gitignore__ file. I edit these files and then commit them to Git using ```git add``` and ```git commit```.
+
+I create a **README.md** file and a **.gitignore** file. I edit these files and then commit them to Git using `git add` and `git commit`.
 
 ```bash
 git branch -M main
@@ -32,7 +33,7 @@ git remote add origin https://github.com/albanmartel/SkillsExchange.git
 git push -u origin main
 ```
 
-####  Créer un environnement virtuel Python
+#### Créer un environnement virtuel Python
 
 ```bash
 python -m venv .venv
@@ -42,31 +43,34 @@ python -m venv .venv
 
 Open the terminal in your project’s root directory:
 
-* **Windows (Command Prompt / `cmd.exe`)** :
+- **Windows (Command Prompt / `cmd.exe`)** :
+
 ```cmd
 .venv\Scripts\activate.bat
 ```
 
+- **Windows (PowerShell)** :
 
-* **Windows (PowerShell)** :
 ```powershell
 .venv\Scripts\Activate.ps1
 ```
 
-*(If a script execution error occurs, first run `Set-ExecutionPolicy Unrestricted -Scope Process` in your session).*
-* **Linux / macOS** :
+_(If a script execution error occurs, first run `Set-ExecutionPolicy Unrestricted -Scope Process` in your session)._
+
+- **Linux / macOS** :
+
 ```bash
 source .venv/bin/activate
 ```
 
-*`(.venv)` appears at the start of the command line when the virtual environment is activated.*
+_`(.venv)` appears at the start of the command line when the virtual environment is activated._
 
 The **.env** file must be saved in the project root directory
 
 #### 3. Installing Django
 
 ```bash
-pip install Django==5.2.12 
+pip install Django==5.2.12
 ```
 
 #### 4. Saving dependencies to a requirements.txt file
@@ -77,10 +81,10 @@ pip freeze > requirements.txt
 
 From now on, the ‘requirements.txt’ file can be used to install dependencies for a Django project.
 
+**Note:**
 
-__Note:__
 1. I used a ‘requirements.txt’ file from a previous Git repository.
-2. __tzdata__ was installed to avoid errors relating to the French date and time format
+2. **tzdata** was installed to avoid errors relating to the French date and time format
 
 #### 5. Installing Django from the dependencies file
 
@@ -97,18 +101,20 @@ mkdir helpexchanges
 django-admin startproject config helpexchanges
 ```
 
-### Creating the __Skills__ application
+### Creating the **Skills** application
 
 ```cmd
 cd skillsexchange
 python .\manage.py startapp skills
 ```
-__Note:__
-At this stage, the admin site is __config__ and the application site is __skills__
+
+**Note:**
+At this stage, the admin site is **config** and the application site is **skills**
 
 ## Architecture
 
 Project structure :
+
 ```powershell
 ────SkillsExchange
     └───.git
@@ -122,10 +128,11 @@ Project structure :
     └─── requirements.txt
 ```
 
-### Les réglages __site_config\settings.py__
+### Les réglages **site_config\settings.py**
 
-Open the Python file __skills_exchange\apps.py__.
+Open the Python file **skills_exchange\apps.py**.
 Take a look at the code. In my case, I have the following:
+
 ```python
 from django.apps import AppConfig
 
@@ -135,7 +142,7 @@ class SkillsConfig(AppConfig):
     name = 'skills'
 ```
 
-I use this to write the following on the first line of the __INSTALLED_APPS__ table in the __site_config\settings.py__ file:
+I use this to write the following on the first line of the **INSTALLED_APPS** table in the **site_config\settings.py** file:
 
 starting with the name ‘skills_exchange’, followed by ‘apps’, followed by the class name ‘SkillsExchangeConfig’.
 
@@ -150,20 +157,23 @@ INSTALLED_APPS = [
 ALLOWED_HOSTS = [
     '127.0.0.1',
 ]
-````
+```
 
 In the TEMPLATES table, edit the following DIRS row as follows
+
 ```python
 'DIRS': [BASE_DIR / 'templates'],
 ```
 
-Edit the ```LANGUAGE_CODE``` and ```TIME_ZONE``` variables so that they look like this:
+Edit the `LANGUAGE_CODE` and `TIME_ZONE` variables so that they look like this:
+
 ```python
 LANGUAGE_CODE = 'fr-FR'
 
 TIME_ZONE = 'Europe/Paris'
 ```
-Go to the line ```STATIC_URL = “static/”```. The code should look like this after you’ve made the changes:
+
+Go to the line `STATIC_URL = “static/”`. The code should look like this after you’ve made the changes:
 
 ```python
 STATIC_URL = 'static/'
@@ -172,6 +182,7 @@ STATICFILES_DIRS = [
     BASE_DIR / "static",
 ]
 ```
+
 This allows you to create a static directory at the root of the Django site and use local CSS and JavaScript files.
 
 The following settings will not be changed in order to use an SQLite database:
@@ -208,7 +219,8 @@ if DEBUG:
 
 ### Creating utility directories
 
-In the __manage.py__ file, run the following commands
+In the **manage.py** file, run the following commands
+
 ```PowerShell
 mkdir templates
 mkdir static
@@ -219,7 +231,6 @@ mkdir css
 ```
 
 This allows parent templates to utilise JavaScript and CSS scripts.
-
 
 ### creates all the necessary tables
 
@@ -240,7 +251,7 @@ python manage.py runserver
 1. Use the help provided by <https://github.com>. When creating a repository, GitHub offers to help you link a local repository to the remote repository.
 
 1. Link a local repository to the Git remote repository:
-<https://labex.io/fr/tutorials/git-step-by-step-instructions-for-linking-a-git-repository-to-a-remote-398369>
+   <https://labex.io/fr/tutorials/git-step-by-step-instructions-for-linking-a-git-repository-to-a-remote-398369>
 
 1. Add debugging tools to Django: <https://stackoverflow.com/a/70224986>
 
@@ -252,7 +263,7 @@ git reset HEAD~
 
 1. Mettre à jour pour éviter le warning include <https://docs.djangoproject.com/en/dev/topics/settings/#using-settings-in-python-code>
 
- ```Python
+```Python
 from django.conf import settings
 
 settings.configure(DEBUG=True)
@@ -260,6 +271,21 @@ settings.configure(DEBUG=True)
 
 1. what does " python manage.py migrate " in django do exactly ? <https://stackoverflow.com/questions/62311073/what-does-python-manage-py-migrate-in-django-do-exactly>
 
- ```Python
+```Python
 python manage.py migrate
 ```
+
+1. Lister des activités en rapport avec des compétences <https://www.davidfraisse.fr/competences-a-mettre-sur-un-cv/>
+
+| Secteur / Domaine             | Compétences techniques                                                                           |
+| ----------------------------- | ------------------------------------------------------------------------------------------------ |
+| **Commercial / Vente**        | CRM Salesforce, négociation B2B, prospection outbound, gestion de pipeline, reporting commercial |
+| **Ressources Humaines**       | SIRH (Workday, SAP HR), conduite d’entretiens, gestion de la paie, droit du travail, recrutement |
+| **Informatique / Dev**        | Python, JavaScript, React, SQL, Git, Docker, CI/CD, AWS, méthodes Agile/Scrum                    |
+| **Marketing / Communication** | Google Analytics, SEO/SEA, Meta Ads, gestion de campagnes email, Canva, Adobe Suite              |
+| **Finance / Comptabilité**    | Sage, SAP FI, contrôle de gestion, consolidation, normes IFRS, reporting financier               |
+| **Logistique / Supply Chain** | ERP (SAP WM), gestion des stocks, Lean management, planification, transport multimodal           |
+| **Santé / Médico-social**     | Soins infirmiers, logiciel de dossier patient (DMP), gestion de plannings, protocoles médicaux   |
+| **Enseignement / Formation**  | Ingénierie pédagogique, LMS (Moodle, Talentsoft), conception de modules e-learning, évaluation   |
+| **BTP / Technique**           | AutoCAD, lecture de plans, gestion de chantier, normes NF, conduite d’engins (CACES)             |
+| **Créatif / Design**          | Adobe Illustrator, Figma, direction artistique, UX/UI design, gestion de projets créatifs        |
