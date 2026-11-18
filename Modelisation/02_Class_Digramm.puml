@@ -1,0 +1,67 @@
+@startuml
+skinparam classAttributeIconSize 0
+
+class User {
+  id : int
+  username : String
+  first_name : String
+  last_name : String
+  email : String
+  password : String
+  is_active : bool
+  date_joined : DateTime
+}
+
+class Competence {
+  - id : int
+  - name : String
+  - description : String
+}
+
+class Activite {
+  - id : int
+  - titre : String
+  - description : String
+}
+
+class CreneauAide {
+  - id : int
+  - dateHeureDebut : DateTime
+  - duree : Duration
+  - statut : StatutCreneau
+  + afficherPourVisiteur() : DonneesAnonymes
+}
+
+enum StatutCreneau {
+  PROPOSE
+  CONFIRME
+  TERMINE
+  ANNULE
+}
+
+class DonneesAnonymes {
+  + competence : String
+  + activite : String
+  + dateHeureDebut : DateTime
+  + duree : Duration
+}
+
+Utilisateur "1" -- "0..*" CreneauAide : propose
+Utilisateur "1" -- "0..*" CreneauAide : reçoit l'aide
+Competence "1" -- "0..*" CreneauAide : mobilisée pour
+Activite "1" -- "0..*" CreneauAide : concerne
+
+CreneauAide ..> DonneesAnonymes : génère pour l'affichage
+
+note right of CreneauAide
+  Seuls les créneaux à venir
+  et proposés sont affichés
+  aux visiteurs.
+end note
+
+note bottom of DonneesAnonymes
+  Les identifiants et les noms
+  des utilisateurs ne sont pas
+  transmis à l'affichage public.
+end note
+@enduml
