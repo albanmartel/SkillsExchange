@@ -1,0 +1,20 @@
+@startuml
+actor User
+participant "Routeur Django\nurl.py" as Routeur
+participant "Vue Django\nviews.py" as View
+participant "Modèle Django\nmodels.py" as Model
+participant "ORM Django" as Orm
+participant "Base de données" as Bd
+participant "Moteur de templates Django" as Engine
+
+User -> Routeur: Demande HTTP
+Routeur -> View: Demande la vue
+View -> Model: Demande un modèle
+Model -> Orm: Demande de données
+Orm -> Bd: Requête SQL
+Bd -> Orm: Retour des données
+Orm -> Model: Transformations des données en objet python
+Model -> Engine: Génération de page statique
+Engine -> User: Réponse HTTP
+
+@enduml
