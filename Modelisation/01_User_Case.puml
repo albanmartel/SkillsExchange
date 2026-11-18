@@ -1,0 +1,62 @@
+@startuml cas_utilisation
+skinparam style strictuml
+left to right direction
+
+' Déclaration des acteurs
+actor "Utilisateur non connecté" as visiteur
+actor "Utilisateur" as user
+
+rectangle "Echange de compétences" {
+  ' Cas d'utilisation
+  usecase "Se connecter" as UC_Connecter
+  usecase "Consulter\ncréneaux d'aide" as UC_vue
+  usecase "Gérer\ncréneaux demande d'aide" as UC_DemandeAide
+  usecase "Gérer\ncréneaux offre d'aide" as UC_OffreAide
+  usecase "Consulter planning d'aides" as UC_Planning
+  usecase "Se déconnecter" as UC_Deconnecter
+
+
+
+  ' Notes rattachées aux cas d'utilisation
+  note right of UC_vue
+    - Afficher tous les créneaux d'aide
+    - Les informations des utilisateurs sont masquées.
+  end note
+
+  note right of UC_DemandeAide
+    - Afficher tous les créneaux d'aide
+    - retirer les créneaux où
+    les compétences de l'utilisateur
+     sont proposées.
+    - réserver un créneau proposé
+    - filtrer les créneaux par proximité géographique
+  end note
+
+  note right of UC_OffreAide
+    - Afficher tous les créneaux d'offre d'aide de l'utilisateur
+    - Ajouter une proposition de créneau d'offre d'activité
+    - Retirer une proposition de créneau d'offre d'activité
+    - Transformer une proposition en créneau d'offre
+    - Supprimer un créneau d'offre
+  end note
+
+    note right of UC_Planning
+    - Afficher tous les créneaux
+     d'offre d'activité planifiés.
+    - Retirer un créneau d'offre d'activité
+    - Modifier un créneau d'offre d'activité
+     end note
+
+  ' Associations acteurs <-> cas d'utilisation
+  visiteur -- UC_Connecter
+  visiteur -- UC_vue
+
+  user -- UC_Deconnecter
+  user -- UC_DemandeAide
+  user -- UC_OffreAide
+  user -- UC_Planning
+
+  ' Relations entre cas d'utilisation
+   UC_DemandeAide .> UC_vue: <<includes>>
+}
+@enduml
