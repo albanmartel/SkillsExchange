@@ -77,6 +77,10 @@ class OfferActivity(EventActivityModel):
     activity = models.ForeignKey(Activity, on_delete=models.CASCADE, related_name='activity_offer')
     id_offer_activity = models.AutoField(primary_key=True)
 
+class AppointmentActivity(EventActivityModel):
+    offer_activity = models.ForeignKey(OfferActivity, on_delete=models.CASCADE, related_name='offer_activity_appointment')
+    request_activity = models.ForeignKey(RequestActivity, on_delete=models.CASCADE, related_name='request_activity_appointment')
+    id_appointment_activity = models.AutoField(primary_key=True)
 
 
 
