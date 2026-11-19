@@ -274,6 +274,18 @@ settings.configure(DEBUG=True)
 ```Python
 python manage.py migrate
 ```
+### Create a superuser
+
+```python
+python manage.py createsuperuser
+```
+
+### Enregistrer les nouveaux modèles en base de données : 
+
+```Python
+python manage.py makemigrations
+python manage.py migrate
+```
 
 1. Lister des activités en rapport avec des compétences <https://www.davidfraisse.fr/competences-a-mettre-sur-un-cv/>
 
@@ -289,3 +301,7 @@ python manage.py migrate
 | **Enseignement / Formation**  | Ingénierie pédagogique, LMS (Moodle, Talentsoft), conception de modules e-learning, évaluation   |
 | **BTP / Technique**           | AutoCAD, lecture de plans, gestion de chantier, normes NF, conduite d’engins (CACES)             |
 | **Créatif / Design**          | Adobe Illustrator, Figma, direction artistique, UX/UI design, gestion de projets créatifs        |
+
+1. Créer un super utilisateur <https://django.wiki/tutorials/manage-py-explained/>
+
+1. Utiliser une vue simple <https://pytutorial.com/django-templateview-example/>
