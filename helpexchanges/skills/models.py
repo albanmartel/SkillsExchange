@@ -73,7 +73,9 @@ class RequestActivity(EventActivityModel):
     activity = models.ForeignKey(Activity, on_delete=models.CASCADE, related_name='activity_request')
     id_request_activity = models.AutoField(primary_key=True)
 
-
+class OfferActivity(EventActivityModel):
+    activity = models.ForeignKey(Activity, on_delete=models.CASCADE, related_name='activity_offer')
+    id_offer_activity = models.AutoField(primary_key=True)
 
 
 
