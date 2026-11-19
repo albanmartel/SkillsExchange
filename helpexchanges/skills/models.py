@@ -25,7 +25,7 @@ class Activity(models.Model):
     This class will be used to facilitate the exchange of activities
     """
     skill = models.ForeignKey(
-        Skill, on_delete=models.CASCADE, related_name='skill', blake=True, null=True
+        Skill, on_delete=models.CASCADE, related_name='skill', blank=True, null=True
     )
     idActivity = models.AutoField(primary_key=True)
     activityTitle = models.CharField(max_length=100, unique=True, verbose_name="Title of Activity")
@@ -33,3 +33,4 @@ class Activity(models.Model):
 
     def __str__(self):
         return self.activityTitle
+
