@@ -36,7 +36,7 @@ class Activity(models.Model):
         return self.activity_title
 
 
-class EventActivity(models.Model):
+class EventActivityModel(models.Model):
     start_date_time = models.DateTimeField()
     end_date_time = models.DateTimeField()
 
@@ -63,11 +63,15 @@ class EventActivity(models.Model):
     def set_start_date_time(self, start_datetime):
         self.start_date_time = start_datetime
 
-
     def set_end_date_time(self, end_datetime):
         self.end_date_time = end_datetime
 
+    class Meta:
+        abstract = True
 
+class RequestActivity(EventActivityModel):
+    activity = models.ForeignKey(Activity, on_delete=models.CASCADE, related_name='activity_request')
+    id_request_activity = models.AutoField(primary_key=True)
 
 
 
