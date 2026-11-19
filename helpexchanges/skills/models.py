@@ -17,3 +17,19 @@ class Skill(models.Model):
 
     def __str__(self):
         return self.skillName
+
+class Activity(models.Model):
+    """
+    Activity model
+    This model corresponds to the Activity class.
+    This class will be used to facilitate the exchange of activities
+    """
+    skill = models.ForeignKey(
+        Skill, on_delete=models.CASCADE, related_name='skill', blake=True, null=True
+    )
+    idActivity = models.AutoField(primary_key=True)
+    activityTitle = models.CharField(max_length=100, unique=True, verbose_name="Title of Activity")
+    activityDescription = models.TextField
+
+    def __str__(self):
+        return self.activityTitle
