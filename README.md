@@ -261,7 +261,7 @@ python manage.py runserver
 git reset HEAD~
 ```
 
-1. Mettre à jour pour éviter le warning include <https://docs.djangoproject.com/en/dev/topics/settings/#using-settings-in-python-code>
+1. Update and avoid include warning <https://docs.djangoproject.com/en/dev/topics/settings/#using-settings-in-python-code>
 
 ```Python
 from django.conf import settings
@@ -287,7 +287,7 @@ python manage.py makemigrations
 python manage.py migrate
 ```
 
-1. Lister des activités en rapport avec des compétences <https://www.davidfraisse.fr/competences-a-mettre-sur-un-cv/>
+1. List activities related to specific skills <https://www.davidfraisse.fr/competences-a-mettre-sur-un-cv/>
 
 | Secteur / Domaine             | Compétences techniques                                                                           |
 | ----------------------------- | ------------------------------------------------------------------------------------------------ |
@@ -302,6 +302,8 @@ python manage.py migrate
 | **BTP / Technique**           | AutoCAD, lecture de plans, gestion de chantier, normes NF, conduite d’engins (CACES)             |
 | **Créatif / Design**          | Adobe Illustrator, Figma, direction artistique, UX/UI design, gestion de projets créatifs        |
 
-1. Créer un super utilisateur <https://django.wiki/tutorials/manage-py-explained/>
+1. Create super user <https://django.wiki/tutorials/manage-py-explained/>
 
-1. Utiliser une vue simple <https://pytutorial.com/django-templateview-example/>
+1. Use a simple view <https://pytutorial.com/django-templateview-example/>
+
+1. To see how to make abstract classe and use Class Meta abstract= true. Read Django Abstract classes <https://medium.com/@dharmateja.k/django-abstract-classes-f0928b2c9127>
