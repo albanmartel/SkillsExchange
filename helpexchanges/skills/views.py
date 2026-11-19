@@ -1,10 +1,13 @@
 from django.shortcuts import render
 from django.views import generic
+from django.views.generic import TemplateView
 
-class IndexView(generic.ListView):
+class IndexView(TemplateView):
     template_name = "skills/index.html"
-    context_object_name = "latest_question_list"
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context["title"] = "Skills Exchange"
+
+        return context
+
