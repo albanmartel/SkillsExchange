@@ -7,5 +7,6 @@ from . import views
 app_name = "skills"
 urlpatterns = [
     # ex: /skills/
-    path("", views.IndexView.as_view(), name="index"),
+    path("", views.FaqView.as_view(), name="index"),
+    
 ]
