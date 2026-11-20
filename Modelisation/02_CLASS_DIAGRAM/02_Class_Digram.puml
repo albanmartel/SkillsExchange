@@ -26,6 +26,7 @@ class Activity {
 class EventActivity {
   - startDateTime : DateTime
   - endDateTime : DateTime
+  - creationDateTime: DateTime
   + get_duration() : DateTime
 }
 
@@ -36,6 +37,7 @@ class Offer {
 class Appointment{
   - idAppointment : long
   - isConfirmedByOfferer : boolean
+  - confirmationDateTime: DateTime
 }
 
 class Request {
