@@ -1,7 +1,11 @@
 from django import forms
 from django.contrib.auth import get_user_model
 from django.contrib.auth.forms import AdminUserCreationForm, UserCreationForm, UserChangeForm
+from django.forms import ModelForm, TextInput, Textarea, formset_factory
 
+from .models import Skill
+
+NB_MAX_ACTIVITY = 10
 
 # creation form for the admin in 'admin.py'
 class CustomUserCreationFormAdmin(AdminUserCreationForm):
@@ -67,3 +71,17 @@ class CustomUserChangeFormPublic(forms.ModelForm):
             'bio',
             'skills',
         )
+
+class SkillForm(ModelForm):
+    template_name = "skills/form.html"
+
+    class Meta:
+        model = Skill
+        fields = [
+            "skill_name",
+            "skill_description",
+        ]
+        widgets = {
+            "skill_name": TextInput(attrs={"size": 40}),
+            "skill_description": Textarea(attrs={"cols": 80, "rows": 3}),
+        }
