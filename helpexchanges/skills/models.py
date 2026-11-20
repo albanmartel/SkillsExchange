@@ -37,6 +37,7 @@ class Activity(models.Model):
 
 
 class EventActivityModel(models.Model):
+    activity = models.ForeignKey(Activity, on_delete=models.CASCADE, related_name='activity_request')
     start_date_time = models.DateTimeField()
     end_date_time = models.DateTimeField()
 
@@ -73,9 +74,16 @@ class RequestActivity(EventActivityModel):
     activity = models.ForeignKey(Activity, on_delete=models.CASCADE, related_name='activity_request')
     id_request_activity = models.AutoField(primary_key=True)
 
+    def get_user(self):
+        #self.activity.skill.
+        pass
+
 class OfferActivity(EventActivityModel):
     activity = models.ForeignKey(Activity, on_delete=models.CASCADE, related_name='activity_offer')
     id_offer_activity = models.AutoField(primary_key=True)
+
+    def __str__(self):
+        return "{} {} {} {} {}".format(self.activity.skill_Name, self.activity.activity_title, self.activity.activity_description, self.get_start_date_time(), self.get_end_date_time())
 
 class AppointmentActivity(EventActivityModel):
     offer_activity = models.ForeignKey(OfferActivity, on_delete=models.CASCADE, related_name='offer_activity_appointment')
