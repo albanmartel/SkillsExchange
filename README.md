@@ -304,6 +304,35 @@ class CustomUserAdmin(UserAdmin):
 admin.site.register(CustomUser, CustomUserAdmin)
 ```
 
+### How to reset your Django migrations?
+After completing the implementation steps outlined above, I encountered problems when trying to implement my new models in the database
+
+If you encounter any problems with the migration.
+My custom user model wasn’t created at the start of the project. As a result, I’ve run into some problems.
+
+__Windows__
+```PowerShell
+bash
+```
+puis 
+```bash
+ find skills/migrations -type f ! -name "__init__.py" -delete
+ rm -f db.sqlite3 ../db.sqlite3
+```
+
+__Notes:__ 
+
+_The first command searches for and deletes old migration files._
+
+_The second command deletes SQLite database files_
+
+and after that, the usual commands :
+
+```python
+python manage.py makemigrations
+python manage.py migrate
+```
+
 ### Ressources
 
 1. Use the help provided by <https://github.com>. When creating a repository, GitHub offers to help you link a local repository to the remote repository.
@@ -369,3 +398,5 @@ python manage.py migrate
 1. Create dictionary of durations, broken down into days, hours and minutes in python <https://stackoverflow.com/a/10981895>
 
 1. Creating a custom Django user model <https://openclassrooms.com/fr/courses/7192426-allez-plus-loin-avec-le-framework-django/7386368-personnalisez-le-modele-utilisateur>
+
+1. How to reset your Django migrations? <https://medium.com/django-unleashed/how-to-reset-your-django-migrations-3717228054a0>
