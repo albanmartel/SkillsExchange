@@ -10,8 +10,8 @@ class Skill(models.Model):
     This class allows several activities representing it to be grouped together
     """
     id_skill = models.AutoField(primary_key=True)
-    skill_name = models.CharField(max_length=100, unique=True, verbose_name="Name of Skill")
-    skill_description = models.TextField()
+    skill_name = models.CharField(max_length=100, unique=True, verbose_name="Skill Name")
+    skill_description = models.TextField(verbose_name="Skill Description")
 
     def __str__(self):
         return self.skill_name
