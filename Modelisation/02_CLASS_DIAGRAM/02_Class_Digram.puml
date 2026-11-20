@@ -7,6 +7,7 @@ class User {
   - first_name : String
   - last_name : String
   - email : String
+  - phone : String
   - password : String
 }
 
@@ -22,30 +23,33 @@ class Activity {
   - activityDescription : String
 }
 
-class Offer {
-  - idOffer : long
+class EventActivity {
   - startDateTime : DateTime
   - endDateTime : DateTime
+  + get_duration() : DateTime
+}
+
+class Offer {
+  - idOffer : long
 }
 
 class Appointment{
   - idAppointment : long
-  - startDateTime : DateTime
-  - endDateTime : DateTime
 }
 
 class Request {
   - idRequest : long
-  - startDateTime : DateTime
-  - endDateTime : DateTime
 }
+
+EventActivity <|-- Offer
+EventActivity <|-- Appointment
+EventActivity <|-- Request
 
 User "0..*" -- "0..*" Skill
 User "1" -- "0..*" Offer
 User "1" -- "0..*" Request
 Skill "1" -- "0..*" Activity
 Appointment "0..1" -- "0..1" Offer
-Appointment "0..1" -- "0..1" Request
 Offer "0..*" -- "1" Activity
 Request "0..*" -- "1" Activity
 @enduml
