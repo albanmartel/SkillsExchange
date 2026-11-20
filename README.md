@@ -402,3 +402,7 @@ python manage.py migrate
 1. How to reset your Django migrations? <https://medium.com/django-unleashed/how-to-reset-your-django-migrations-3717228054a0>
 
 1. Examples of model relationship API usage¶<https://docs.djangoproject.com/fr/5.2/topics/db/examples/>
+
+1. Create a date that is null by default <https://stackoverflow.com/a/53721823>
+
+1. Ensure when the record is created, the date used is today’s date <https://stackoverflow.com/a/2771701>
