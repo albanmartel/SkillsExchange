@@ -35,6 +35,7 @@ class Offer {
 
 class Appointment{
   - idAppointment : long
+  - isConfirmedByOfferer : boolean
 }
 
 class Request {
@@ -46,10 +47,11 @@ EventActivity <|-- Appointment
 EventActivity <|-- Request
 
 User "0..*" -- "0..*" Skill
+Skill "1" -- "0..*" Activity
 User "1" -- "0..*" Offer
 User "1" -- "0..*" Request
-Skill "1" -- "0..*" Activity
-Appointment "0..1" -- "0..1" Offer
 Offer "0..*" -- "1" Activity
 Request "0..*" -- "1" Activity
+Appointment "0..1" -- "0..1" Offer
+
 @enduml
