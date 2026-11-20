@@ -400,3 +400,5 @@ python manage.py migrate
 1. Creating a custom Django user model <https://openclassrooms.com/fr/courses/7192426-allez-plus-loin-avec-le-framework-django/7386368-personnalisez-le-modele-utilisateur>
 
 1. How to reset your Django migrations? <https://medium.com/django-unleashed/how-to-reset-your-django-migrations-3717228054a0>
+
+1. Examples of model relationship API usage¶<https://docs.djangoproject.com/fr/5.2/topics/db/examples/>
