@@ -1,6 +1,5 @@
 from django import forms
-from django.contrib.auth import admin
-from django.contrib.auth.models import User, AbstractUser, AbstractBaseUser, BaseUserManager, PermissionsMixin
+from django.contrib.auth.models import User, AbstractUser
 from django.db import models
 from datetime import date, datetime, timedelta
 
