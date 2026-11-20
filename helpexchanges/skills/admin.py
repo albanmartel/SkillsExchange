@@ -10,7 +10,7 @@ class CustomUserAdmin(UserAdmin):
     add_form = CustomUserCreationForm
     form = CustomUserChangeForm
     model = CustomUser
-    list_display = [
+    list_display = (
             'username',
             'first_name',
             'last_name',
@@ -23,7 +23,58 @@ class CustomUserAdmin(UserAdmin):
             'is_superuser',
             'last_login',
             'date_joined',
-        ]
+    )
+    search_fields = (
+        "email",
+        "username",
+        "first_name",
+        "last_name",
+        "phone"
+    )
+    ordering = (
+        'username',
+    )
+    filter_horizontal = (
+        "groups",
+        "user_permissions",
+    )
+
+    fieldsets = (
+        (None, {"fields": ("username", "email", "password")}),
+        ("Informations personnelles", {"fields": ("first_name", "last_name", "phone", "bio")}),
+        (
+            "Permissions et rôles",
+            {
+                "fields": (
+                    "is_active",
+                    "is_staff",
+                    "is_superuser",
+                    "groups",
+                    "user_permissions",
+                )
+            },
+        ),
+        ("Dates importantes", {"fields": ("last_login", "date_joined")}),
+    )
+
+    add_fieldsets = (
+        (
+            None,
+            {
+                "classes": ("wide",),
+                "fields": (
+                    "username",
+                    "email",
+                    "first_name",
+                    "last_name",
+                    "phone",
+                    "bio",
+                    "is_staff",
+                    "is_superuser",
+                ),
+            },
+        ),
+    )
 
 # Add this if the decorator isn’t working
 admin.site.register(CustomUser, CustomUserAdmin)
