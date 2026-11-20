@@ -4,8 +4,6 @@ from django.contrib.auth.models import User, AbstractUser, AbstractBaseUser, Bas
 from django.db import models
 from datetime import date, datetime, timedelta
 
-# Create your models here.
-
 class Skill(models.Model):
     """
     Skill model
@@ -37,23 +35,33 @@ class Activity(models.Model):
 
 
 class EventActivityModel(models.Model):
-    activity = models.ForeignKey(Activity, on_delete=models.CASCADE, related_name='activity_request')
+    """
+    EventActivityModel model
+    parentclass of the 'requestactivity', 'offeractivity' and 'appointmentactivity' classes
+    """
+    activity = models.ForeignKey(Activity, on_delete=models.CASCADE, related_name='%(class)s_activity')
     start_date_time = models.DateTimeField()
     end_date_time = models.DateTimeField()
 
-    def __init__(self, start_datetime, end_datetime):
-        self.start_date_time = start_datetime
-        self.end_date_time = end_datetime
-
     def difference(self):
-        difference = self.end_date_time - self.start_date_time
+        """
+        the code is inspired by  : https://stackoverflow.com/a/10981895
+        """
+        if not self.start_date_time or not self.end_date_time:
+            return None
 
-        years = difference.days // 365
-        days = difference.days
-        hours = difference.hours
-        minutes = difference.minutes
+        delta = self.end_date_time - self.start_date_time
+        if delta.total_seconds() < 0:
+            return None
 
-        return { 'years': years, 'days': days, 'hours': hours, 'minutes': minutes }
+        hours, remainder = divmod(delta.seconds, 3600)
+        minutes, _ = divmod(remainder, 60)
+
+        return {
+            "days": delta.days,
+            "hours": hours,
+            "minutes": minutes,
+        }
 
     def get_start_date_time(self):
         return self.start_date_time
@@ -71,7 +79,6 @@ class EventActivityModel(models.Model):
         abstract = True
 
 class RequestActivity(EventActivityModel):
-    activity = models.ForeignKey(Activity, on_delete=models.CASCADE, related_name='activity_request')
     id_request_activity = models.AutoField(primary_key=True)
 
     def get_user(self):
@@ -79,14 +86,12 @@ class RequestActivity(EventActivityModel):
         pass
 
 class OfferActivity(EventActivityModel):
-    activity = models.ForeignKey(Activity, on_delete=models.CASCADE, related_name='activity_offer')
     id_offer_activity = models.AutoField(primary_key=True)
 
     def __str__(self):
         return "{} {} {} {} {}".format(self.activity.skill_Name, self.activity.activity_title, self.activity.activity_description, self.get_start_date_time(), self.get_end_date_time())
 
 class AppointmentActivity(EventActivityModel):
-    offer_activity = models.ForeignKey(OfferActivity, on_delete=models.CASCADE, related_name='offer_activity_appointment')
     request_activity = models.ForeignKey(RequestActivity, on_delete=models.CASCADE, related_name='request_activity_appointment')
     id_appointment_activity = models.AutoField(primary_key=True)
 
