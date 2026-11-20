@@ -246,6 +246,69 @@ If your database doesn't exist yet, migrate creates all the necessary tables to 
 python manage.py runserver
 ```
 
+### Creating a custom Django user model
+
+__models.py__ :
+```python
+from django.contrib.auth.models import AbstractUser
+from django.db import models
+
+class CustomUser(AbstractUser):
+    pass
+```
+
+__settings.py__
+```python
+INSTALLED_APPS = [
+    ...
+    # Local Champs ajouté
+    'users.apps.UsersConfig',
+]
+...
+# Définition ajoutée
+AUTH_USER_MODEL = 'users.CustomUser'
+```
+
+__form.py__
+```python
+from django.contrib.auth import get_user_model
+from django.contrib.auth.forms import UserCreationForm, UserChangeForm
+
+
+class CustomUserCreationForm(UserCreationForm):
+
+    class Meta(UserCreationForm):
+        model = get_user_model()
+        fields = ('email', 'username',)
+
+
+class CustomUserChangeForm(UserChangeForm):
+
+    class Meta(UserChangeForm):
+        model = get_user_model()
+        fields = ('email', 'username',)
+```
+
+__admin.py__ :
+```python
+from django.contrib import admin
+from django.contrib.auth import get_user_model
+from django.contrib.auth.admin import UserAdmin
+
+from .forms import CustomUserCreationForm, CustomUserChangeForm
+
+CustomUser = get_user_model()
+
+
+class CustomUserAdmin(UserAdmin):
+    add_form = CustomUserCreationForm
+    form = CustomUserChangeForm
+    model = CustomUser
+    list_display = ['email', 'username',]
+
+admin.site.register(CustomUser, CustomUserAdmin)
+```
+
 ### Ressources
 
 1. Use the help provided by <https://github.com>. When creating a repository, GitHub offers to help you link a local repository to the remote repository.
@@ -261,7 +324,7 @@ python manage.py runserver
 git reset HEAD~
 ```
 
-1. Update and avoid include warning <https://docs.djangoproject.com/en/dev/topics/settings/#using-settings-in-python-code>
+1. Update and avoid include warning <https://global.php.cn/fr/faq/1796912830.html>
 
 ```Python
 from django.conf import settings
@@ -307,3 +370,7 @@ python manage.py migrate
 1. Use a simple view <https://pytutorial.com/django-templateview-example/>
 
 1. To see how to make abstract classe and use Class Meta abstract= true. Read Django Abstract classes <https://medium.com/@dharmateja.k/django-abstract-classes-f0928b2c9127>
+
+1. Create dictionary of durations, broken down into days, hours and minutes in python <https://stackoverflow.com/a/10981895>
+
+1. Creating a custom Django user model <https://openclassrooms.com/fr/courses/7192426-allez-plus-loin-avec-le-framework-django/7386368-personnalisez-le-modele-utilisateur>
