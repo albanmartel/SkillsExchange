@@ -42,6 +42,10 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 ]
 
+# tells Django which model should be used as the primary user model
+# throughout the project, instead of the default User (‘auth.User’).
+AUTH_USER_MODEL = 'skills.CustomUser'
+
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
