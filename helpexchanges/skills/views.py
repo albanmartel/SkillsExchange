@@ -7,6 +7,7 @@ from .models import OfferActivity
 
 class IndexView(TemplateView):
     template_name = "skills/index.html"
+    context_object_name = "activity_list"
 
     def get_queryset(self):
         """
