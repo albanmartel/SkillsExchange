@@ -8,17 +8,11 @@ class CustomUserCreationForm(UserCreationForm):
         model = get_user_model()
         fields = (
             'username',
+            'email',
             'first_name',
             'last_name',
-            'email',
             'phone',
             'bio',
-            'password',
-            'is_staff',
-            'is_active',
-            'is_superuser',
-            'last_login',
-            'date_joined',
         )
 
 
@@ -26,17 +20,4 @@ class CustomUserChangeForm(UserChangeForm):
 
     class Meta:
         model = get_user_model()
-        fields = (
-            'username',
-            'first_name',
-            'last_name',
-            'email',
-            'phone',
-            'bio',
-            'password',
-            'is_staff',
-            'is_active',
-            'is_superuser',
-            'last_login',
-            'date_joined',
-        )
+        fields = "__all__"
