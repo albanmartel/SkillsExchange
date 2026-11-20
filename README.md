@@ -259,15 +259,10 @@ class CustomUser(AbstractUser):
 
 __settings.py__
 ```python
-INSTALLED_APPS = [
-    ...
-    # Local Champs ajouté
-    'users.apps.UsersConfig',
-]
-...
 # Définition ajoutée
 AUTH_USER_MODEL = 'users.CustomUser'
 ```
+Note: _users_ est le nom de l'application django dans ce cas
 
 __form.py__
 ```python
