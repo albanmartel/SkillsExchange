@@ -33,7 +33,7 @@ class CustomUserChangeFormAdmin(UserChangeForm):
         model = get_user_model()
         fields = "__all__"
 
-# creation form for the admin in 'admin.py'
+# creation form for public interface
 class CustomUserCreationFormPublic(UserCreationForm):
     """
     CustomUserCreationFormAdmin form
@@ -50,4 +50,20 @@ class CustomUserCreationFormPublic(UserCreationForm):
             'bio',
         )
 
-
+# modification form for public interface
+class CustomUserChangeFormPublic(forms.ModelForm):
+    """
+    CustomUserChangeFormAdmin form
+    Custom user modification form for the admin interface.
+    """
+    class Meta:
+        model = get_user_model()
+        fields = (
+            'username',
+            'email',
+            'first_name',
+            'last_name',
+            'phone',
+            'bio',
+            'skills',
+        )
