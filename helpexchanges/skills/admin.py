@@ -2,7 +2,7 @@ from django.contrib import admin
 from django.contrib.auth import get_user_model
 from django.contrib.auth.admin import UserAdmin
 
-from .forms import CustomUserCreationForm, CustomUserChangeForm
+from .forms import CustomUserCreationFormAdmin, CustomUserChangeFormAdmin
 
 CustomUser = get_user_model()
 
@@ -12,8 +12,8 @@ class CustomUserAdmin(UserAdmin):
     This class allows you to customise the forms
     that will be used in the administrator interface
     """
-    add_form = CustomUserCreationForm
-    form = CustomUserChangeForm
+    add_form = CustomUserCreationFormAdmin
+    form = CustomUserChangeFormAdmin
     model = CustomUser
     # Columns displayed in the user changelist view
     list_display = (
@@ -23,7 +23,6 @@ class CustomUserAdmin(UserAdmin):
             'email',
             'phone',
             'bio',
-            'password',
             'is_staff',
             'is_active',
             'is_superuser',
@@ -49,6 +48,7 @@ class CustomUserAdmin(UserAdmin):
     filter_horizontal = (
         "groups",
         "user_permissions",
+        "skills",
     )
 
     # Field sections on the existing user edit page
@@ -76,15 +76,20 @@ class CustomUserAdmin(UserAdmin):
             None,
             {
                 "classes": ("wide",),
-                "fields": (
-                    "username",
-                    "email",
-                    "first_name",
-                    "last_name",
-                    "phone",
-                    "bio",
-                    "is_staff",
-                    "is_superuser",
+                "fields": tuple(
+                    dict.fromkeys(
+                        (
+                            *UserAdmin.add_fieldsets[0][1]["fields"],
+                            "email",
+                            "first_name",
+                            "last_name",
+                            "phone",
+                            "bio",
+                            "is_staff",
+                            "is_active",
+                            "is_superuser",
+                        )
+                    )
                 ),
             },
         ),
