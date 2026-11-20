@@ -3,16 +3,6 @@ from django.contrib.auth.models import User, AbstractUser
 from django.db import models
 from datetime import date, datetime, timedelta
 
-class CustomUser(AbstractUser):
-    """
-    CustomUser model
-    This template allows the user to customise the traditional Django class.
-    In this case, the ‘phone’ and ‘biography’ parameters are added.
-    For this to work, certain requirements must be met, particularly in the ‘settings.py’ file.
-    """
-    phone = models.CharField(max_length=20, blank=True)
-    bio = models.TextField(blank=True)
-
 class Skill(models.Model):
     """
     Skill model
@@ -25,6 +15,25 @@ class Skill(models.Model):
 
     def __str__(self):
         return self.skill_name
+
+class CustomUser(AbstractUser):
+    """
+    CustomUser model
+    This template allows the user to customise the traditional Django class.
+    In this case, the ‘phone’ and ‘biography’ parameters are added.
+    For this to work, certain requirements must be met, particularly in the ‘settings.py’ file.
+    """
+    phone = models.CharField(max_length=20, blank=True)
+    bio = models.TextField(blank=True)
+    skills = models.ManyToManyField(
+        Skill,
+        related_name="users",
+        blank=True
+    )
+
+    class Meta:
+        ordering = ['username']
+
 
 class Activity(models.Model):
     """
