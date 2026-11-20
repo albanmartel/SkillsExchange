@@ -33,11 +33,11 @@ class Activity(models.Model):
     This class will be used to facilitate the exchange of activities
     """
     skill = models.ForeignKey(
-        Skill, on_delete=models.CASCADE, related_name='skill', blank=True, null=True
+        Skill, on_delete=models.CASCADE, related_name='activities', blank=True, null=True
     )
     id_activity = models.AutoField(primary_key=True)
     activity_title = models.CharField(max_length=100, unique=True, verbose_name="Title of Activity")
-    activity_description = models.TextField
+    activity_description = models.TextField(blank=True)
 
     def __str__(self):
         return self.activity_title
@@ -48,7 +48,6 @@ class EventActivityModel(models.Model):
     EventActivityModel model
     parentclass of the 'requestactivity', 'offeractivity' and 'appointmentactivity' classes
     """
-    activity = models.ForeignKey(Activity, on_delete=models.CASCADE, related_name='%(class)s_activity')
     start_date_time = models.DateTimeField()
     end_date_time = models.DateTimeField()
 
@@ -88,6 +87,9 @@ class EventActivityModel(models.Model):
         abstract = True
 
 class RequestActivity(EventActivityModel):
+    activity = models.ForeignKey(
+        Activity, on_delete=models.CASCADE, related_name="request_activities"
+    )
     id_request_activity = models.AutoField(primary_key=True)
 
     def get_user(self):
@@ -95,13 +97,18 @@ class RequestActivity(EventActivityModel):
         pass
 
 class OfferActivity(EventActivityModel):
+    activity = models.ForeignKey(
+        Activity, on_delete=models.CASCADE, related_name="offer_activities"
+    )
     id_offer_activity = models.AutoField(primary_key=True)
 
     def __str__(self):
         return "{} {} {} {} {}".format(self.activity.skill_Name, self.activity.activity_title, self.activity.activity_description, self.get_start_date_time(), self.get_end_date_time())
 
 class AppointmentActivity(EventActivityModel):
-    request_activity = models.ForeignKey(RequestActivity, on_delete=models.CASCADE, related_name='request_activity_appointment')
+    offer_activity = models.ForeignKey(
+        OfferActivity, on_delete=models.CASCADE, related_name='appointement_offer_activity'
+    )
     id_appointment_activity = models.AutoField(primary_key=True)
 
 
