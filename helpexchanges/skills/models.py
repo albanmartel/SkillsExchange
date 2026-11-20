@@ -59,8 +59,13 @@ class EventActivityModel(models.Model):
     """
     start_date_time = models.DateTimeField()
     end_date_time = models.DateTimeField()
+    # How can I ensure that, when the record is created, the date used is today’s date?
+    # https://stackoverflow.com/a/2771701
+    creationDateTime = models.DateTimeField(
+        default=datetime.now,
+        blank=True)
 
-    def difference(self):
+    def get_duration(self):
         """
         the code is inspired by  : https://stackoverflow.com/a/10981895
         """
@@ -119,6 +124,13 @@ class AppointmentActivity(EventActivityModel):
         OfferActivity, on_delete=models.CASCADE, related_name='appointement_offer_activity'
     )
     id_appointment_activity = models.AutoField(primary_key=True)
+    isConfirmedByOfferer = models.BooleanField(default=False)
+    # create a date that is null by default
+    # https://stackoverflow.com/a/53721823
+    confirmationDateTime = models.DateTimeField(
+        null=True,
+        blank=True
+    )
 
 
 
