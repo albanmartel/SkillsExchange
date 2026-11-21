@@ -46,7 +46,7 @@ class Activity(models.Model):
     )
     id_activity = models.AutoField(primary_key=True)
     activity_title = models.CharField(max_length=100, unique=True, verbose_name="Title of Activity")
-    activity_description = models.TextField(blank=True)
+    activity_description = models.TextField(blank=True, verbose_name="Description of Activity")
 
     def __str__(self):
         return self.activity_title
@@ -57,13 +57,14 @@ class EventActivityModel(models.Model):
     EventActivityModel model
     parentclass of the 'requestactivity', 'offeractivity' and 'appointmentactivity' classes
     """
-    start_date_time = models.DateTimeField()
-    end_date_time = models.DateTimeField()
+    start_date_time = models.DateTimeField(verbose_name="Date and time of beginning")
+    end_date_time = models.DateTimeField(verbose_name="Date and time of end")
     # How can I ensure that, when the record is created, the date used is today’s date?
     # https://stackoverflow.com/a/2771701
     creationDateTime = models.DateTimeField(
         default=datetime.now,
-        blank=True
+        blank=True,
+        verbose_name = "Date and time of now"
     )
 
     def get_duration(self):
@@ -125,12 +126,13 @@ class AppointmentActivity(EventActivityModel):
         OfferActivity, on_delete=models.CASCADE, related_name='appointement_offer_activity'
     )
     id_appointment_activity = models.AutoField(primary_key=True)
-    isConfirmedByOfferer = models.BooleanField(default=False)
+    isConfirmedByOfferer = models.BooleanField(default=False, verbose_name="is then appointment is confirmed")
     # create a date that is null by default
     # https://stackoverflow.com/a/53721823
     confirmationDateTime = models.DateTimeField(
         null=True,
-        blank=True
+        blank=True,
+        verbose_name="date and time of the appointment confirmation"
     )
 
 
