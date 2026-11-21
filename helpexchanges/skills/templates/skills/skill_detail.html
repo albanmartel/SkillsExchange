@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+
+{% block title %}{{ title }}{% endblock %}
+
+{% block maintitle %} {{ title }} {% endblock %}
+
+{% block main %}
+
+{% if error_message %}
+    <p><strong>{{ error_message }}</strong></p>
+{% endif %}
+
+<div class="skill-detail">
+    <!-- 1. Informations about skill -->
+    <h1>{{ skill.skill_name }}</h1>
+
+    <div class="skill-description">
+      {% if skill.skill_description %}
+        <p>{{ skill.skill_description|linebreaks }}</p>
+      {% else %}
+        <p><em>No description has been defined for this skill.</em></p>
+      {% endif %}
+    </div>
+</div>
+
+{% endblock %}
