@@ -160,3 +160,35 @@ class RequestActivityAdmin(admin.ModelAdmin):
     def get_duration(self, obj):
         duration = obj.get_duration()
         return duration if duration else "-"
+
+
+@admin.register(OfferActivity)
+class OfferActivityAdmin(admin.ModelAdmin):
+    list_display = (
+        "id_offer_activity",
+        "activity",
+        "author",
+        "get_skill_name",
+        "start_date_time",
+        "end_date_time",
+        "get_duration",
+    )
+    list_display_links = ("id_offer_activity", "activity")
+    search_fields = (
+        "activity__activity_title",
+        "activity__skill__skill_name",
+        "author",
+    )
+    ordering = ("start_date_time",)
+    list_select_related = ("activity", "activity__skill")
+
+    @admin.display(description="Skill Name", ordering="activity__skill__skill_name")
+    def get_skill_name(self, obj):
+        if obj.activity and obj.activity.skill:
+            return obj.activity.skill.skill_name
+        return "-"
+
+    @admin.display(description="Duration")
+    def get_duration(self, obj):
+        duration = obj.get_duration()
+        return duration if duration else "-"
