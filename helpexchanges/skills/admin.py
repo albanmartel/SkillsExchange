@@ -3,7 +3,13 @@ from django.contrib.auth import get_user_model
 from django.contrib.auth.admin import UserAdmin
 
 from .forms import CustomUserCreationFormAdmin, CustomUserChangeFormAdmin
-from .models import Skill, Activity
+from .models import (
+    Skill,
+    Activity,
+    RequestActivity,
+    OfferActivity,
+    AppointmentActivity
+)
 
 CustomUser = get_user_model()
 
@@ -122,3 +128,35 @@ class ActivityAdmin(admin.ModelAdmin):
     list_display_links = ("id_activity", "activity_title")
     search_fields = ("activity_title", "activity_description", "skill__skill_name")
     ordering = ("activity_title",)
+    list_select_related = ("skill",)
+
+@admin.register(RequestActivity)
+class RequestActivityAdmin(admin.ModelAdmin):
+    list_display = (
+        "id_request_activity",
+        "activity",
+        "author",
+        "get_skill_name",
+        "start_date_time",
+        "end_date_time",
+        "get_duration",
+    )
+    list_display_links = ("id_request_activity", "activity")
+    search_fields = (
+        "activity__activity_title",
+        "activity__skill__skill_name",
+        "author",
+    )
+    ordering = ("start_date_time",)
+    list_select_related = ("activity", "activity__skill")
+
+    @admin.display(description="Skill Name", ordering="activity__skill__skill_name")
+    def get_skill_name(self, obj):
+        if obj.activity and obj.activity.skill:
+            return obj.activity.skill.skill_name
+        return "-"
+
+    @admin.display(description="Duration")
+    def get_duration(self, obj):
+        duration = obj.get_duration()
+        return duration if duration else "-"
