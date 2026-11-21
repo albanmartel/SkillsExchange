@@ -3,7 +3,7 @@ from django.contrib.auth import get_user_model
 from django.contrib.auth.forms import AdminUserCreationForm, UserCreationForm, UserChangeForm
 from django.forms import ModelForm, TextInput, Textarea, formset_factory
 
-from .models import Skill
+from .models import Skill, Activity
 
 NB_MAX_ACTIVITY = 10
 
@@ -82,4 +82,16 @@ class SkillForm(ModelForm):
         widgets = {
             "skill_name": TextInput(attrs={"size": 40}),
             "skill_description": Textarea(attrs={"cols": 80, "rows": 3}),
+        }
+
+class ActivityForm(ModelForm):
+    class Meta:
+        model = Activity
+        fields = [
+            "activity_title",
+            "activity_description",
+        ]
+        widgets = {
+            "activity_title": TextInput(attrs={"size": 40}),
+            "activity_description": Textarea(attrs={"cols": 80, "rows": 3}),
         }
