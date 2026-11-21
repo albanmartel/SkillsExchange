@@ -3,7 +3,7 @@ from django.contrib.auth import get_user_model
 from django.contrib.auth.admin import UserAdmin
 
 from .forms import CustomUserCreationFormAdmin, CustomUserChangeFormAdmin
-from .models import Skill
+from .models import Skill, Activity
 
 CustomUser = get_user_model()
 
@@ -55,7 +55,7 @@ class CustomUserAdmin(UserAdmin):
     # Field sections on the existing user edit page
     fieldsets = (
         (None, {"fields": ("username", "email", "password")}),
-        ("Informations personnelles", {"fields": ("first_name", "last_name", "phone", "bio")}),
+        ("Informations personnelles", {"fields": ("first_name", "last_name", "phone", "bio", "skills")}),
         (
             "Permissions et rôles",
             {
@@ -115,3 +115,10 @@ class SkillAdmin(admin.ModelAdmin):
 
     # Default alphabetical sort
     ordering = ("skill_name",)
+
+@admin.register(Activity)
+class ActivityAdmin(admin.ModelAdmin):
+    list_display = ("id_activity", "activity_title", "activity_description", "skill__skill_name")
+    list_display_links = ("id_activity", "activity_title")
+    search_fields = ("activity_title", "activity_description", "skill__skill_name")
+    ordering = ("activity_title",)
