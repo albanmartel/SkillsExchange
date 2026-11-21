@@ -73,8 +73,6 @@ class CustomUserChangeFormPublic(forms.ModelForm):
         )
 
 class SkillForm(ModelForm):
-    template_name = "skills/form.html"
-
     class Meta:
         model = Skill
         fields = [
