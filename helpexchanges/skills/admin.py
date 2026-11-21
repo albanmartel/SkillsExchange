@@ -3,6 +3,7 @@ from django.contrib.auth import get_user_model
 from django.contrib.auth.admin import UserAdmin
 
 from .forms import CustomUserCreationFormAdmin, CustomUserChangeFormAdmin
+from .models import Skill
 
 CustomUser = get_user_model()
 
@@ -97,3 +98,20 @@ class CustomUserAdmin(UserAdmin):
 
 # Add this if the decorator isn’t working
 admin.site.register(CustomUser, CustomUserAdmin)
+
+@admin.register(Skill)
+class SkillAdmin(admin.ModelAdmin):
+    """
+    Allows you to create, list, search for and edit skills in /admin/
+    """
+    # Columns displayed in the list table
+    list_display = ("id_skill", "skill_name", "skill_description")
+
+    # Add a link to the skill name to edit it
+    list_display_links = ("id_skill", "skill_name")
+
+    # Search bar at the top of the list
+    search_fields = ("skill_name", "skill_description")
+
+    # Default alphabetical sort
+    ordering = ("skill_name",)
