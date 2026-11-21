@@ -8,5 +8,7 @@ app_name = "skills"
 urlpatterns = [
     # ex: /skills/
     path("", views.IndexView.as_view(), name="index"),
+    # ex: /skills/add
+    path("add/", views.skill_create, name="skill_add"),
 
 ]
