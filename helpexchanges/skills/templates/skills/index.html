@@ -24,6 +24,9 @@
                 {{assistance.author.username}}
                 {{assistance.author.email}}
                 {{assistance.author.phone}}
+                <a href="{% url 'skills:assistance_detail' pk=assistance.id_assistance %}">
+                    More details ...
+                </a>
             {% else %}
                 someone
             {% endif %}
