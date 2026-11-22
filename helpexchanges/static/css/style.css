@@ -86,6 +86,13 @@ header {
     overflow: hidden;
 }
 
+.home-banner-skills {
+    display: block;
+    width: 100%;
+    background-color: #dd855e;
+    overflow: hidden;
+}
+
 .header-banner-image {
     width: 100%;
     height: auto;
