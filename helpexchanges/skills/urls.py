@@ -9,7 +9,7 @@ urlpatterns = [
     # ex: /skills/
     path("", views.IndexView.as_view(), name="index"),
     # ex: /skills/about
-    path("", views.AboutView.as_view(), name="about"),
+    path("about", views.AboutView.as_view(), name="about"),
     # ex: /skills/skill_add
     path("skill_add/", views.skill_create, name="skill_add"),
     # ex: /skills/skill_edit/1
