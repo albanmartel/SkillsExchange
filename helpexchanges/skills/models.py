@@ -123,11 +123,10 @@ class Assistance(models.Model):
         hours, remainder = divmod(delta.seconds, 3600)
         minutes, _ = divmod(remainder, 60)
 
-        return {
-            "days": delta.days,
-            "hours": hours,
-            "minutes": minutes,
-        }
+        duration = {"days": delta.days, "hours": hours, "minutes": minutes}
+        if delta.days < 1:
+            duration = {"hours": hours, "minutes": minutes}
+        return duration
 
     def get_start_date_time(self):
         return self.start_date_time
