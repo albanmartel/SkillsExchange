@@ -142,7 +142,7 @@ class Assistance(models.Model):
         self.end_date_time = end_datetime
 
 
-class Appointment(models.Models):
+class Appointment(models.Model):
     assistance= models.ForeignKey(
         Assistance,
         on_delete=models.CASCADE,
@@ -160,18 +160,17 @@ class Appointment(models.Models):
     )
     id_appointment_activity = models.AutoField(primary_key=True)
     is_confirmed = models.BooleanField(default=False)
-    isConfirmedByOfferer = models.BooleanField(default=False, verbose_name="is then appointment is confirmed")
+    isConfirmedByOfferer = models.BooleanField(
+        default=False,
+        verbose_name="is then appointment is confirmed"
+    )
     # create a date that is null by default
     # https://stackoverflow.com/a/53721823
     confirmationDateTime = models.DateTimeField(
         null=True,
         blank=True,
-        related_name='ConfirmationDate',
         verbose_name="date and time of the appointment confirmation"
     )
-
-    def __init__(self):
-        self.confirmation_datetime = None
 
     def set_confirmed(self) -> None:
         self.is_confirmed = True
