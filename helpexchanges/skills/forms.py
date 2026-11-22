@@ -3,7 +3,7 @@ from django.contrib.auth import get_user_model
 from django.contrib.auth.forms import AdminUserCreationForm, UserCreationForm, UserChangeForm
 from django.forms import ModelForm, TextInput, Textarea, formset_factory
 
-from .models import Skill, Activity
+from .models import Skill, Activity, CustomUser
 
 NB_MAX_ACTIVITY = 10
 
@@ -95,3 +95,15 @@ class ActivityForm(ModelForm):
             "activity_title": TextInput(attrs={"size": 40}),
             "activity_description": Textarea(attrs={"cols": 80, "rows": 3}),
         }
+
+class InscriptionForm(UserCreationForm):
+    class Meta(UserCreationForm.Meta):
+        model = CustomUser
+        fields = [
+            'username',
+            'first_name',
+            'last_name',
+            'email',
+            'phone',
+            'bio',
+        ]
