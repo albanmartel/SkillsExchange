@@ -14,6 +14,8 @@ urlpatterns = [
     path("about", views.AboutView.as_view(), name="about"),
     # ex: /skills/login
     path('login/', LoginView.as_view(template_name = "skills/login.html", next_page = "skills:index"), name='login'),
+    # ex /skills/logout
+    path("logout/", LogoutView.as_view(next_page="skills:index"), name="logout"),
     # ex: /skills/skill_add
     path("skill_add/", views.skill_create, name="skill_add"),
     # ex: /skills/skill_edit/1
