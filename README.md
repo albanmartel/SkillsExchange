@@ -332,7 +332,16 @@ and after that, the usual commands :
 python manage.py makemigrations
 python manage.py migrate
 ```
+### Generate an SQL backup script from the SQLite3 database. 
+```bash
+sqlite3 my_database .dump > db_backup_2026-11-20_15-00-00.sql
+```
 
+### Creating an SQLite3 database from an SQL backup script
+
+```bash
+sqlite3 nouvelle_base.sqlite3 < db_backup_2026-11-20_15-00-00.sql
+```
 ### Ressources
 
 1. Use the help provided by <https://github.com>. When creating a repository, GitHub offers to help you link a local repository to the remote repository.
@@ -408,3 +417,5 @@ python manage.py migrate
 1. Ensure when the record is created, the date used is today’s date <https://stackoverflow.com/a/2771701>
 
 1. The Enum types in Django 5.2 <https://docs.djangoproject.com/fr/5.2/ref/models/fields/#enumeration-types>
+
+1. Generate an SQL backup script from the SQLite3 database <https://stackoverflow.com/a/43398520>
