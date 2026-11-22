@@ -1,10 +1,18 @@
 from django.shortcuts import render
 from django.views import generic
 from django.shortcuts import get_object_or_404, render, redirect
-from django.views.generic import TemplateView
+from django.views.generic import (
+    TemplateView,
+    ListView,
+)
 
-from .models import Activity
-from .forms import SkillForm
+from .models import (
+    Activity,
+    Assistance,
+)
+from .forms import (
+    SkillForm,
+)
 
 why = """
 Skills Exchange was created with a specific goal in mind: to popularize the exchange of free services in order to strengthen the spirit of solidarity throughout France. We aspire not only to make the exchange of free services more widespread, but also to make it the norm—a habit deeply rooted in the daily lives of the French people. The idea is simple: for certain services, instead of thinking about payment, we want to encourage the instinct to help one another and share.
@@ -25,10 +33,15 @@ class AboutView(TemplateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context["title"] = "About Skills Exchange"
-        context["Objectif"] = "connects individuals who want to help one another and exchange services"
+        context["objective"] = "connects individuals who want to help one another and exchange services"
         context["mission"] = why
 
         return context
+
+class IndexView(ListView):
+    model = Assistance
+    template_name = "skills/index.html"
+    context_object_name = "assistances"
 
 def skill_create(request):
     if request.method == "POST":
