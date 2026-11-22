@@ -76,8 +76,25 @@ class AssistanceStatus(models.TextChoices):
 class Assistance(models.Model):
     """
     Assistance model
-    parentclass of the 'requestactivity', 'offeractivity' and 'appointmentactivity' classes
     """
+    # link to CustomUser Model
+    author = models.ForeignKey(
+        CustomUser, on_delete=models.CASCADE, related_name="offer_activities", null=True, blank=True,
+    )
+    # Link to Activity Model
+    activity = models.ForeignKey(
+        Activity, on_delete=models.CASCADE, related_name="request_activities"
+    )
+    assistance_type = models.CharField (
+        max_length=16,
+        choices=AssistanceType,
+        default=AssistanceType.OFFER,
+    )
+    assistance_status = models.CharField(
+        max_length=16,
+        choices=AssistanceStatus,
+        default=AssistanceStatus.OPEN
+    )
     start_date_time = models.DateTimeField(verbose_name="Date and time of beginning")
     end_date_time = models.DateTimeField(verbose_name="Date and time of end")
     # How can I ensure that, when the record is created, the date used is today’s date?
@@ -120,8 +137,6 @@ class Assistance(models.Model):
     def set_end_date_time(self, end_datetime):
         self.end_date_time = end_datetime
 
-    class Meta:
-        abstract = True
 
 class RequestActivity(EventActivityModel):
     activity = models.ForeignKey(
