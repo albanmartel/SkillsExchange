@@ -10,5 +10,23 @@
     <p><strong>{{ error_message }}</strong></p>
 {% endif %}
 
-{% lorem 5 p %}
+{% if assistances %}
+    <ul>
+    {% for assistance in assistances %}
+        <li>
+            {{assistance.id_assistance}}
+            {{assistance.assistance_type}}
+            {{assistance.start_date_time | date:"d/m/Y"}}
+            {{assistance.start_date_time | time:"H:i"}}
+            {{assistance.end_date_time | time:"H:i"}}
+            {{assistance.author.username}}
+            {{assistance.activity.activity_title}}
+            {{assistance.author.email}}
+            {{assistance.author.phone}}
+        </li>
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>No assistances are available.</p>
+{% endif %}
 {% endblock %}
