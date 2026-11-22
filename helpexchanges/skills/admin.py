@@ -2,6 +2,7 @@ from django.contrib import admin
 from django.contrib.auth import get_user_model
 from django.contrib.auth.admin import UserAdmin
 from django.contrib.auth.models import AbstractUser
+from wcwidth import width
 
 from .forms import CustomUserCreationFormAdmin, CustomUserChangeFormAdmin
 from .models import (
@@ -27,6 +28,7 @@ class CustomUserAdmin(UserAdmin):
             'username',
             'first_name',
             'last_name',
+            'get_skills_display',
             'email',
             'phone',
             'bio',
@@ -102,6 +104,15 @@ class CustomUserAdmin(UserAdmin):
         ),
     )
 
+    def get_queryset(self, request):
+        queryset = super().get_queryset(request)
+        return queryset.prefetch_related("skills")
+
+    @admin.display(description="Skills")
+    def get_skills_display(self, obj):
+        skill_names = [skill.skill_name for skill in obj.skills.all()]
+        return ", ".join(skill_names) if skill_names else "-"
+
 # Add this if the decorator isn’t working
 admin.site.register(CustomUser, CustomUserAdmin)
 
@@ -137,6 +148,8 @@ class Assistance(admin.ModelAdmin):
         "author",
         "activity",
         "get_skill_name",
+        "assistance_type",
+        "assistance_status",
         "start_date_time",
         "end_date_time",
         "get_duration",
@@ -160,3 +173,78 @@ class Assistance(admin.ModelAdmin):
     def get_duration(self, obj):
         duration = obj.get_duration()
         return duration if duration else "-"
+
+@admin.register(Appointment)
+class AppointmentAdmin(admin.ModelAdmin):
+    list_display = (
+        "id_appointment_activity",
+        "assistance",
+        "get_author",
+        "partner",
+        "is_confirmed",
+        "isConfirmedByOfferer",
+        "confirmationDateTime",
+    )
+    list_display_links = (
+        "id_appointment_activity",
+        "assistance",
+    )
+    list_filter = (
+        "is_confirmed",
+        "isConfirmedByOfferer",
+        "confirmationDateTime",
+    )
+    search_fields = (
+        "assistance__activity__activity_title",
+        "assistance__author__username",
+        "partner__username",
+        "partner__email",
+    )
+    ordering = ("-id_appointment_activity",)
+    list_select_related = (
+        "assistance",
+        "assistance__author",
+        "assistance__activity",
+        "partner",
+    )
+    readonly_fields = ("confirmationDateTime",)
+    actions = ("mark_as_confirmed",)
+
+    fieldsets = (
+        (
+            "Participants & Assistance",
+            {
+                "fields": (
+                    "assistance",
+                    "partner",
+                )
+            },
+        ),
+        (
+            "Confirmation",
+            {
+                "fields": (
+                    "is_confirmed",
+                    "isConfirmedByOfferer",
+                    "confirmationDateTime",
+                )
+            },
+        ),
+    )
+
+    @admin.display(description="Author", ordering="assistance__author__username")
+    def get_author(self, obj):
+        if obj.assistance and obj.assistance.author:
+            return obj.assistance.author.username
+        return "-"
+
+    @admin.display(description="Activity title")
+    def get_activity_title(self, obj):
+        if obj.pk and obj.assistance and obj.assistance.activity:
+            return obj.assistance.activity.activity_title
+        return "-"
+
+    @admin.action(description="Mark selected appointments as confirmed")
+    def mark_as_confirmed(self, request, queryset):
+        for appointment in queryset:
+            appointment.set_confirmed()
