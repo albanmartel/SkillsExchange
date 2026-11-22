@@ -1,7 +1,10 @@
 from django import forms
 from django.contrib.auth.models import User, AbstractUser
+from django.utils import timezone
 from django.db import models
 from datetime import date, datetime, timedelta
+
+from django.db.models.fields import related
 from django.utils.translation import gettext_lazy as _
 
 class Skill(models.Model):
@@ -139,22 +142,42 @@ class Assistance(models.Model):
         self.end_date_time = end_datetime
 
 
-class AppointmentActivity(EventActivityModel):
-    offer_activity = models.ForeignKey(
-        OfferActivity, on_delete=models.CASCADE, related_name='appointement_offer_activity'
+class Appointment(models.Models):
+    assistance= models.ForeignKey(
+        Assistance,
+        on_delete=models.CASCADE,
+        related_name='appointment',
+        verbose_name='appointment assistance'
     )
-    request_activity = models.ForeignKey(
-        RequestActivity, on_delete=models.CASCADE, related_name='appointement_offer_activity', null=True, blank=True,
+    # the other user, the one who did not create the support slot
+    partner = models.ForeignKey(
+        CustomUser,
+        on_delete=models.CASCADE,
+        related_name='partner',
+        verbose_name='partner of assistance',
+        null=True,
+        blank=True,
     )
     id_appointment_activity = models.AutoField(primary_key=True)
+    is_confirmed = models.BooleanField(default=False)
     isConfirmedByOfferer = models.BooleanField(default=False, verbose_name="is then appointment is confirmed")
     # create a date that is null by default
     # https://stackoverflow.com/a/53721823
     confirmationDateTime = models.DateTimeField(
         null=True,
         blank=True,
+        related_name='ConfirmationDate',
         verbose_name="date and time of the appointment confirmation"
     )
+
+    def __init__(self):
+        self.confirmation_datetime = None
+
+    def set_confirmed(self) -> None:
+        self.is_confirmed = True
+        if self.confirmation_datetime is None:
+            self.confirmation_datetime = timezone.now()
+        self.save(update_fields=["is_confirmed", "confirmation_datetime"])
 
 
 
