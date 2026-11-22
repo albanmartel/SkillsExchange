@@ -141,6 +141,16 @@ class Assistance(models.Model):
     def set_end_date_time(self, end_datetime):
         self.end_date_time = end_datetime
 
+    def __str__(self) -> str:
+        if self.activity:
+            dt_local = timezone.localtime(self.start_date_time)
+            date_locale = dt_local.date()
+            start_time = dt_local.time()
+            dt_local = timezone.localtime(self.end_date_time)
+            end_time = dt_local.time()
+            return f"{self.pk}: {self.assistance_type} {self.author.username}, Activity:{self.activity.activity_title}, Date:{date_locale}, Start: {start_time} End:{end_time})"
+        return f"Assistance #{self.pk}"
+
 
 class Appointment(models.Model):
     assistance= models.ForeignKey(
