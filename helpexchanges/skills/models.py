@@ -54,14 +54,24 @@ class Activity(models.Model):
 
 class AssistanceType(models.TextChoices):
     """
-    ENUM
+    AssistanceType model
+    ENUM class
     Implementing an enum class in Django
     for the type of help
     """
     OFFER = "OFFER", _("offer of help")
     REQUEST = "REQUEST", _("request for help")
 
-
+class AssistanceStatus(models.TextChoices):
+    """
+    AssistanceStatus model
+    ENUM class
+    Implementing an enum class in Django
+    for the status of Assistance event.
+    """
+    OPEN = "OPEN", _("Open")
+    CANCELLED = "CANCELLED", _("Cancelled")
+    EXPIRED = "EXPIRED", _("Expired")
 
 class Assistance(models.Model):
     """
