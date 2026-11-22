@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+
+{% block title %}{{ title }}{% endblock %}
+
+{% block maintitle %} {{ title }} {% endblock %}
+
+{% block main %}
+
+{% if error_message %}
+    <p><strong>{{ error_message }}</strong></p>
+{% endif %}
+{% if assistance %}
+        <li>
+            {{assistance.id_assistance}}
+            {{assistance.assistance_type}}
+            {{assistance.start_date_time | date:"d/m/Y"}}
+            {{assistance.activity.activity_title}}
+            {{assistance.start_date_time | time:"H:i"}}
+            {{assistance.end_date_time | time:"H:i"}}
+            {% if user.is_authenticated %}
+                {{assistance.author.username}}
+                {{assistance.author.email}}
+                {{assistance.author.phone}}
+            {% else %}
+                someone
+            {% endif %}
+        </li>
+{% else %}
+    <p>No assistance is available.</p>
+{% endif %}
+
+{% endblock %}
