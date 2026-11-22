@@ -77,6 +77,7 @@ class Assistance(models.Model):
     """
     Assistance model
     """
+    id_assistance = models.AutoField(primary_key=True)
     # link to CustomUser Model
     author = models.ForeignKey(
         CustomUser, on_delete=models.CASCADE, related_name="offer_activities", null=True, blank=True,
@@ -137,28 +138,6 @@ class Assistance(models.Model):
     def set_end_date_time(self, end_datetime):
         self.end_date_time = end_datetime
 
-
-class RequestActivity(EventActivityModel):
-    activity = models.ForeignKey(
-        Activity, on_delete=models.CASCADE, related_name="request_activities"
-    )
-    author = models.ForeignKey(
-        CustomUser, on_delete=models.CASCADE, related_name="request_activities", null=True, blank=True,
-    )
-    id_request_activity = models.AutoField(primary_key=True)
-
-    def get_user(self):
-        #self.activity.skill.
-        pass
-
-class OfferActivity(EventActivityModel):
-    activity = models.ForeignKey(
-        Activity, on_delete=models.CASCADE, related_name="offer_activities"
-    )
-    author = models.ForeignKey(
-        CustomUser, on_delete=models.CASCADE, related_name="offer_activities", null=True, blank=True,
-    )
-    id_offer_activity = models.AutoField(primary_key=True)
 
 class AppointmentActivity(EventActivityModel):
     offer_activity = models.ForeignKey(
