@@ -81,3 +81,9 @@ class AccountView(DetailView):
     model = CustomUser
     template_name = "skills/account.html"
     context_object_name = "customuser"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["title"] = "Account"
+
+        return context
