@@ -3,7 +3,7 @@ from django.views import generic
 from django.shortcuts import get_object_or_404, render, redirect
 from django.views.generic import TemplateView
 
-from .models import OfferActivity
+from .models import Activity
 from .forms import SkillForm
 
 
@@ -16,7 +16,7 @@ class IndexView(TemplateView):
         Return the queryset that should be shown to the user
 
         """
-        return OfferActivity.objects.order_by("")
+        return Activity.objects.order_by("")
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
