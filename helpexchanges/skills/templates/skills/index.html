@@ -17,16 +17,21 @@
             {{assistance.id_assistance}}
             {{assistance.assistance_type}}
             {{assistance.start_date_time | date:"d/m/Y"}}
+            {{assistance.activity.activity_title}}
             {{assistance.start_date_time | time:"H:i"}}
             {{assistance.end_date_time | time:"H:i"}}
-            {{assistance.author.username}}
-            {{assistance.activity.activity_title}}
-            {{assistance.author.email}}
-            {{assistance.author.phone}}
+            {% if user.is_authenticated %}
+                {{assistance.author.username}}
+                {{assistance.author.email}}
+                {{assistance.author.phone}}
+            {% else %}
+                someone
+            {% endif %}
         </li>
     {% endfor %}
     </ul>
 {% else %}
     <p>No assistances are available.</p>
 {% endif %}
+
 {% endblock %}
