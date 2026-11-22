@@ -106,6 +106,9 @@ class RequestActivity(EventActivityModel):
     activity = models.ForeignKey(
         Activity, on_delete=models.CASCADE, related_name="request_activities"
     )
+    author = models.ForeignKey(
+        CustomUser, on_delete=models.CASCADE, related_name="request_activities", null=True, blank=True,
+    )
     id_request_activity = models.AutoField(primary_key=True)
 
     def get_user(self):
@@ -116,14 +119,17 @@ class OfferActivity(EventActivityModel):
     activity = models.ForeignKey(
         Activity, on_delete=models.CASCADE, related_name="offer_activities"
     )
+    author = models.ForeignKey(
+        CustomUser, on_delete=models.CASCADE, related_name="offer_activities", null=True, blank=True,
+    )
     id_offer_activity = models.AutoField(primary_key=True)
-
-    def __str__(self):
-        return "{} {} {} {} {}".format(self.activity.skill_Name, self.activity.activity_title, self.activity.activity_description, self.get_start_date_time(), self.get_end_date_time())
 
 class AppointmentActivity(EventActivityModel):
     offer_activity = models.ForeignKey(
         OfferActivity, on_delete=models.CASCADE, related_name='appointement_offer_activity'
+    )
+    request_activity = models.ForeignKey(
+        RequestActivity, on_delete=models.CASCADE, related_name='appointement_offer_activity', null=True, blank=True,
     )
     id_appointment_activity = models.AutoField(primary_key=True)
     isConfirmedByOfferer = models.BooleanField(default=False, verbose_name="is then appointment is confirmed")

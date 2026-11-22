@@ -10,6 +10,15 @@
     <p><strong>{{ error_message }}</strong></p>
 {% endif %}
 
-{% lorem  %}
+{% if activity_list %}
+    <ul>
+    {% for activity in activity_list %}
+        <li><a href="{% url 'skills:detail' activity.id %}">{{ question.question_text }}</a> {{question.pub_date | date:"l j N Y, H:i"}}</li>
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>No skills are available.</p>
+{% endif %}
+
 
 {% endblock %}
