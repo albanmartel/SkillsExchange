@@ -4,6 +4,7 @@ from django.contrib.auth.views import LoginView
 from django.urls import reverse_lazy
 from django.contrib import messages
 from django.shortcuts import get_object_or_404, render, redirect
+from django.views.generic.edit import FormView
 from django.views.generic import (
     TemplateView,
     ListView,
@@ -17,6 +18,7 @@ from .models import (
 )
 from .forms import (
     SkillForm,
+    InscriptionForm,
 )
 
 why = """
@@ -76,7 +78,6 @@ def skill_create(request):
 
     return render(request, "skills/form.html", context)
 
-
 class AccountView(DetailView):
     model = CustomUser
     template_name = "skills/account.html"
@@ -87,3 +88,12 @@ class AccountView(DetailView):
         context["title"] = "Account"
 
         return context
+
+class RegisterView(FormView):
+    template_name = "skills/register.html"
+    form_class = InscriptionForm
+    success_url = reverse_lazy("skills:login")
+
+    def form_valid(self, form):
+        form.save()
+        return super().form_valid(form)
