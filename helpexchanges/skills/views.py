@@ -43,6 +43,12 @@ class IndexView(ListView):
     template_name = "skills/index.html"
     context_object_name = "assistances"
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["title"] = "Welcome to Skills Exchange"
+
+        return context
+
 def skill_create(request):
     if request.method == "POST":
         form = SkillForm(request.POST)
