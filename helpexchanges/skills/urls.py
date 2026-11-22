@@ -1,5 +1,7 @@
+from tempfile import template
+
 from debug_toolbar.toolbar import debug_toolbar_urls
-from django.urls import path, include
+from django.urls import path, include, reverse_lazy
 from django.contrib.auth.views import LoginView, LogoutView
 
 from . import views
@@ -10,6 +12,8 @@ urlpatterns = [
     path("", views.IndexView.as_view(), name="index"),
     # ex: /skills/about
     path("about", views.AboutView.as_view(), name="about"),
+    # ex: /skills/login
+    path('login/', LoginView.as_view(template_name = "skills/login.html", next_page = "skills:index"), name='login'),
     # ex: /skills/skill_add
     path("skill_add/", views.skill_create, name="skill_add"),
     # ex: /skills/skill_edit/1
