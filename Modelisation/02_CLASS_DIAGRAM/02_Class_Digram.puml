@@ -1,12 +1,12 @@
 @startuml
 skinparam classAttributeIconSize 0
 
-enum PostType {
+enum AssistanceType {
   OFFER
   REQUEST
 }
 
-enum PostStatus {
+enum AssistanceStatus {
   OPEN
   MATCHED
   CANCELLED
@@ -35,7 +35,10 @@ class Activity {
   - activityDescription : String
 }
 
-class EventActivity {
+class Assistance {
+  - idAssistance : long
+  - typeAssistance : AssistanceType
+  - statusAssistance : AssistanceStatus
   - startDateTime : DateTime
   - endDateTime : DateTime
   - creationDateTime: DateTime
@@ -57,7 +60,6 @@ class Request {
 }
 
 EventActivity <|-- Offer
-EventActivity <|-- Appointment
 EventActivity <|-- Request
 
 User "0..*" -- "0..*" Skill
