@@ -30,6 +30,8 @@ urlpatterns = [
     path("activity_add/", views.skill_create, name="activity_add"),
     # ex: /skills/activity_edit/1
     path("activity_edit/<int:pk>/", views.skill_create, name="activity_edit"),
+    # ex: /skills/activity_detail/1
+    path("assistance_detail/<int:pk>/", views.AssistanceDetailView.as_view(), name="assistance_detail"),
     # ex: /skills/offer_add
     path("offer_add/", views.skill_create, name="offer_add"),
     # ex: /skills/offer_edit/1
