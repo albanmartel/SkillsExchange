@@ -406,3 +406,5 @@ python manage.py migrate
 1. Create a date that is null by default <https://stackoverflow.com/a/53721823>
 
 1. Ensure when the record is created, the date used is today’s date <https://stackoverflow.com/a/2771701>
+
+1. The Enum types in Django 5.2 <https://docs.djangoproject.com/fr/5.2/ref/models/fields/#enumeration-types>
