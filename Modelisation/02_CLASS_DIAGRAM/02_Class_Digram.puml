@@ -6,6 +6,13 @@ enum PostType {
   REQUEST
 }
 
+enum PostStatus {
+  OPEN
+  MATCHED
+  CANCELLED
+  EXPIRED
+}
+
 class User {
   - idUser : Long
   - username : String
