@@ -45,7 +45,7 @@ class IndexView(ListView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context["title"] = "Welcome to Skills Exchange"
+        context["title"] = "Upcoming time slots for requesting or offering help"
 
         return context
 
