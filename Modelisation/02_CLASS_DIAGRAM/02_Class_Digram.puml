@@ -8,7 +8,6 @@ enum AssistanceType {
 
 enum AssistanceStatus {
   OPEN
-  MATCHED
   CANCELLED
   EXPIRED
 }
@@ -46,15 +45,17 @@ class Assistance {
 }
 
 class Appointment{
-  - idAppointment : long
-  - isConfirmedByOfferer : boolean
-  - confirmationDateTime: DateTime
+- idAppointment : long
+  - isConfirmed : boolean
+  - confirmationDateTime : DateTime
+  + setConfirmed() : void
 }
 
 User "0..*" -- "0..*" Skill
 Skill "1" -- "0..*" Activity
-User "1" -- "0..*" Assistance
 Assistance "0..*" -- "1" Activity
+User "1" -- "0..*" Assistance : author
+User "1" -- "0..*" Appointment : partner
 Appointment "0..1" -- "0..*" Assistance
 
 @enduml
