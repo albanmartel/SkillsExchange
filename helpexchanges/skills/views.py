@@ -6,21 +6,27 @@ from django.views.generic import TemplateView
 from .models import Activity
 from .forms import SkillForm
 
+why = """
+Skills Exchange was created with a specific goal in mind: to popularize the exchange of free services in order to strengthen the spirit of solidarity throughout France. We aspire not only to make the exchange of free services more widespread, but also to make it the norm—a habit deeply rooted in the daily lives of the French people. The idea is simple: for certain services, instead of thinking about payment, we want to encourage the instinct to help one another and share.
 
-class IndexView(TemplateView):
-    template_name = "skills/index.html"
+We dream of a society where the exchange of knowledge, skills, and various forms of assistance would become the first option considered, even before monetary exchange.
+
+We recognize that this approach may not be feasible for all services. However, it is important to emphasize that the potential for applying this model is much broader than one might initially think.
+
+By fostering a spirit of solidarity, we also hope to build a tighter-knit network of local communities, where people know, support, and value one another.
+
+Ultimately, our goal is to contribute to a more united and supportive society, where the exchange of free services becomes common practice, reflecting a sharing economy that enriches everyone.
+"""
+
+class AboutView(TemplateView):
+    template_name = "skills/about.html"
     context_object_name = "activity_list"
-
-    def get_queryset(self):
-        """
-        Return the queryset that should be shown to the user
-
-        """
-        return Activity.objects.order_by("")
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context["title"] = "Skills Exchange"
+        context["title"] = "About Skills Exchange"
+        context["Objectif"] = "connects individuals who want to help one another and exchange services"
+        context["mission"] = why
 
         return context
 
