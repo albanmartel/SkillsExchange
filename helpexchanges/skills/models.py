@@ -2,6 +2,7 @@ from django import forms
 from django.contrib.auth.models import User, AbstractUser
 from django.db import models
 from datetime import date, datetime, timedelta
+from django.utils.translation import gettext_lazy as _
 
 class Skill(models.Model):
     """
@@ -51,10 +52,20 @@ class Activity(models.Model):
     def __str__(self):
         return self.activity_title
 
-
-class EventActivityModel(models.Model):
+class AssistanceType(models.TextChoices):
     """
-    EventActivityModel model
+    ENUM
+    Implementing an enum class in Django
+    for the type of help
+    """
+    OFFER = "OFFER", _("offer of help")
+    REQUEST = "REQUEST", _("request for help")
+
+
+
+class Assistance(models.Model):
+    """
+    Assistance model
     parentclass of the 'requestactivity', 'offeractivity' and 'appointmentactivity' classes
     """
     start_date_time = models.DateTimeField(verbose_name="Date and time of beginning")
