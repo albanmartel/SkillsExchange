@@ -1,6 +1,11 @@
 @startuml
 skinparam classAttributeIconSize 0
 
+enum PostType {
+  OFFER
+  REQUEST
+}
+
 class User {
   - idUser : Long
   - username : String
