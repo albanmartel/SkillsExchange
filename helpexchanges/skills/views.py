@@ -1,11 +1,16 @@
 from django.shortcuts import render
 from django.views import generic
+from django.contrib.auth.views import LoginView
+from django.urls import reverse_lazy
+from django.contrib import messages
 from django.shortcuts import get_object_or_404, render, redirect
 from django.views.generic import (
     TemplateView,
     ListView,
+    DetailView,
 )
 
+from .admin import CustomUser
 from .models import (
     Activity,
     Assistance,
@@ -71,3 +76,8 @@ def skill_create(request):
 
     return render(request, "skills/form.html", context)
 
+
+class AccountView(DetailView):
+    model = CustomUser
+    template_name = "skills/account.html"
+    context_object_name = "customuser"
