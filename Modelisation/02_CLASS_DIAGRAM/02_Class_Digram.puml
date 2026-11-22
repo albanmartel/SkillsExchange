@@ -45,29 +45,16 @@ class Assistance {
   + get_duration() : DateTime
 }
 
-class Offer {
-  - idOffer : long
-}
-
 class Appointment{
   - idAppointment : long
   - isConfirmedByOfferer : boolean
   - confirmationDateTime: DateTime
 }
 
-class Request {
-  - idRequest : long
-}
-
-EventActivity <|-- Offer
-EventActivity <|-- Request
-
 User "0..*" -- "0..*" Skill
 Skill "1" -- "0..*" Activity
-User "1" -- "0..*" Offer
-User "1" -- "0..*" Request
-Offer "0..*" -- "1" Activity
-Request "0..*" -- "1" Activity
-Appointment "0..1" -- "0..1" Offer
+User "1" -- "0..*" Assistance
+Assistance "0..*" -- "1" Activity
+Appointment "0..1" -- "0..*" Assistance
 
 @enduml
