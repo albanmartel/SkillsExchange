@@ -17,7 +17,17 @@
     <!-- partie titre de l'onglet du navigateur -->
 </head>
 <body>
+ <header class="site-header">
+    <picture class="home-banner-link">
+        <!-- 1. Si l'écran fait 768px ou moins (Téléphone) : charge le SVG compact -->
+        <source media="(max-width: 768px)" srcset="{% static 'images/banniere-mobile.svg' %}">
 
+        <!-- 2. Par défaut (Ordinateur / Tablette) : charge votre grand SVG Inkscape -->
+        <img src="{% static 'images/FMS_blanc.svg' %}"
+             alt="Logo Django CDA Python/JAVA Académie FMS 2026"
+             class="header-banner-image">
+    </picture>
+ </header>
 <!-- La partie block Header -->
     <main>
         <!-- Le titre dans la page -->
