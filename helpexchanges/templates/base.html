@@ -32,13 +32,13 @@
             dans le gabarit enfant.
         -->
                 <!-- Lien vers la page d'accueil contenant l'image -->
-                <a href="{% url 'skills:index' %}" class="home-banner-link">
+                <a href="{% url 'skills:index' %}" class="home-banner-skills">
                     <picture>
                         <!-- 1. Si l'écran fait 768px ou moins (Téléphone) : charge le SVG compact -->
-                        <source media="(max-width: 768px)" srcset="{% static 'images/banniere-mobile.svg' %}">
+                        <source media="(max-width: 768px)" srcset="{% static 'images/entraide-solidarite-11.svg' %}">
 
                         <!-- 2. Par défaut (Ordinateur / Tablette) : charge votre grand SVG Inkscape -->
-                        <img src="{% static 'images/FMS_blanc.svg' %}"
+                        <img src="{% static 'images/entraide-solidarite-11.svg' %}"
                              alt="Logo Django CDA Python/JAVA Académie FMS 2026"
                              class="header-banner-image">
                     </picture>
@@ -47,6 +47,47 @@
             <div class="header-container">
             <span class="site-title-placeholder">Django CDA Python/JAVA Académie FMS 2026</span> <!-- Optionnel ou nom du site -->
 
+                <!-- Bouton Menu Burger (visible uniquement sur mobile) -->
+                <button class="menu-toggle" aria-label="Ouvrir le menu">
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                </button>
+
+                <!-- Navigation -->
+                <nav class="header-nav">
+                    <ul>
+                        <li><a href="{% url 'skills:index' %}">Home</a></li>
+                        <li><a href="{% url 'skills:about' %}">About</a></li>
+                        <!-- Vérification si l'utilisateur est connecté -->
+                        {% if request.user.is_authenticated %}
+                            <li class="user-dropdown-container">
+                                <details class="admin-dropdown">
+                                    <summary class="user-menu-toggle">
+                                        👤 {{ request.user.first_name|default:request.user.email }} ▾
+                                    </summary>
+
+                                    <div class="dropdown-menu-native">
+                                        <a href="{% url 'skills:account' request.user.pk %}">Mon compte</a>
+
+                                        <form action="{% url 'skills:logout' %}" method="post" style="margin: 0;">
+                                            {% csrf_token %}
+                                            <button type="submit" class="dropdown-logout-btn">Se déconnecter</button>
+                                        </form>
+                                    </div>
+                                </details>
+                            </li>
+                        {% else %}
+                            <!-- Si l'utilisateur n'est pas connecté -->
+                            <p>
+                                <li><a href="{% url 'skills:login' %}">Log In</a></li>
+                            </p>
+                            <p>
+                                <li><a href="{% url 'skills:register' %}">Register</a></li>
+                            </p>
+                        {% endif %}
+                    </ul>
+                </nav>
             </div>
         {% endblock %}
         </header>
