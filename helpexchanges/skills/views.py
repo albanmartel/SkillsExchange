@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.views import generic
-from django.contrib.auth.views import LoginView
+from django.contrib.auth.views import LoginView, PasswordChangeView
 from django.urls import reverse_lazy
 from django.contrib import messages
 from django.shortcuts import get_object_or_404, render, redirect
@@ -9,6 +9,8 @@ from django.views.generic import (
     TemplateView,
     ListView,
     DetailView,
+
+
 )
 
 from .admin import CustomUser
@@ -19,6 +21,7 @@ from .models import (
 from .forms import (
     SkillForm,
     InscriptionForm,
+    PasswordForm,
 )
 
 why = """
@@ -108,3 +111,18 @@ class RegisterView(FormView):
     def form_valid(self, form):
         form.save()
         return super().form_valid(form)
+
+class ChangePasswordView(PasswordChangeView):
+    template_name = "polls/change_password.html"
+    form_class = PasswordForm
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['title'] = "Change password"
+        return context
+
+    # On remplace l'attribut statique success_url par cette méthode dynamique
+    def get_success_url(self):
+        # self.request.user contient l'utilisateur actuellement connecté
+        # On récupère sa clé primaire (pk) pour l'injecter dynamiquement dans l'URL
+        return reverse_lazy("polls:account", kwargs={'pk': self.request.user.pk})
