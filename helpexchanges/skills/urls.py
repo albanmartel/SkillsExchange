@@ -20,6 +20,8 @@ urlpatterns = [
     path("register/", views.RegisterView.as_view(), name="register"),
     # ex /skills/account/1
     path("account/<int:pk>/", views.AccountView.as_view(), name="account"),
+    # ex /polls/password
+    path("password/", views.ChangePasswordView.as_view(), name="change_password"),
     # ex: /skills/skill_add
     path("skill_add/", views.skill_create, name="skill_add"),
     # ex: /skills/skill_edit/1
