@@ -1,6 +1,6 @@
 from django import forms
 from django.contrib.auth import get_user_model
-from django.contrib.auth.forms import AdminUserCreationForm, UserCreationForm, UserChangeForm
+from django.contrib.auth.forms import AdminUserCreationForm, UserCreationForm, UserChangeForm, PasswordChangeForm
 from django.forms import ModelForm, TextInput, Textarea, formset_factory
 
 from .models import Skill, Activity, CustomUser
@@ -107,3 +107,6 @@ class InscriptionForm(UserCreationForm):
             'phone',
             'bio',
         ]
+
+class PasswordForm(PasswordChangeForm):
+    pass
